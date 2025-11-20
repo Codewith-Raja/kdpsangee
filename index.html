@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KDPKitchen Masal — Store (Under Development)</title>
+  <meta name="description" content="KD PKitchen Masal — buy premium spices and masalas. Store front (demo, under development)." />
+  <style>
+    :root{
+      --accent:#d97706; /* amber-600 */
+      --muted:#6b7280; /* gray-500 */
+      --bg:#f8fafc; /* gray-50 */
+      --card:#ffffff;
+      --glass: rgba(255,255,255,0.6);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,#fff 0%,var(--bg) 100%);color:#111}
+    header{background:linear-gradient(90deg,rgba(217,119,6,0.06),transparent);padding:18px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid rgba(0,0,0,0.04)}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:56px;height:56px;background:var(--accent);border-radius:10px;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:18px}
+    .title{font-size:18px;font-weight:700}
+    .subtitle{font-size:12px;color:var(--muted)}
+    .badge{background:var(--accent);color:white;padding:6px 10px;border-radius:999px;font-weight:600;font-size:12px}
+    nav{display:flex;gap:12px;align-items:center}
+    .search{min-width:200px}
+    input[type=search]{padding:8px 12px;border-radius:10px;border:1px solid rgba(0,0,0,0.08);width:240px}
+    main{max-width:1100px;margin:28px auto;padding:0 20px}
+    .hero{display:flex;gap:20px;align-items:center;justify-content:space-between}
+    .hero-left{max-width:640px}
+    .h1{font-size:28px;margin:0}
+    .p{color:var(--muted);margin-top:8px}
+    .ribbon{position:relative;display:inline-block;margin-top:12px}
+    .ribbon .r{position:absolute;right:-8px;top:-8px;background:#ef4444;color:white;padding:6px 10px;border-radius:6px;font-weight:700;font-size:12px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px;margin-top:22px}
+
+    .card{background:var(--card);border-radius:14px;padding:12px;border:1px solid rgba(0,0,0,0.04);box-shadow:0 6px 18px rgba(16,24,40,0.04);display:flex;flex-direction:column;gap:8px}
+    .thumb{height:140px;border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(0,0,0,0.02),transparent)}
+    .thumb img{max-width:100%;max-height:100%;object-fit:cover}
+    .prod-title{font-weight:700;font-size:15px}
+    .price{font-weight:800;color:var(--accent)}
+    .muted{color:var(--muted);font-size:13px}
+    .actions{display:flex;gap:8px;margin-top:6px}
+    .btn{padding:8px 10px;border-radius:10px;border:none;cursor:pointer;font-weight:700}
+    .btn-primary{background:var(--accent);color:white}
+    .btn-ghost{background:transparent;border:1px solid rgba(0,0,0,0.06)}
+
+    .cart-btn{position:fixed;right:18px;bottom:18px;background:var(--accent);color:white;padding:14px;border-radius:999px;box-shadow:0 8px 30px rgba(217,119,6,0.18);z-index:60;border:none}
+    .cart-panel{position:fixed;right:18px;bottom:80px;width:360px;max-height:70vh;background:var(--card);border-radius:12px;padding:12px;box-shadow:0 10px 30px rgba(2,6,23,0.12);overflow:auto;z-index:60;border:1px solid rgba(0,0,0,0.06)}
+    .cart-item{display:flex;gap:10px;align-items:center;border-bottom:1px dashed rgba(0,0,0,0.04);padding:10px 6px}
+    .small-thumb{width:56px;height:56px;border-radius:8px;overflow:hidden}
+    .qty{display:flex;gap:6px;align-items:center}
+    .ghost{background:transparent;border:1px solid rgba(0,0,0,0.06);padding:6px 8px;border-radius:8px}
+
+    footer{max-width:1100px;margin:28px auto;padding:18px 20px;color:var(--muted);font-size:13px}
+
+    /* small screens */
+    @media (max-width:640px){
+      .hero{flex-direction:column;align-items:flex-start}
+      input[type=search]{width:140px}
+      .cart-panel{right:10px;left:10px;width:auto}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo">KDP</div>
+      <div>
+        <div class="title">KD PKitchen Masal</div>
+        <div class="subtitle">Premium masalas & spices — small-batch</div>
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:12px">
+      <nav>
+        <div class="search">
+          <input id="searchInput" type="search" placeholder="Search spices, blends..." />
+        </div>
+        <div class="badge">Under development</div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-left">
+        <h1 class="h1">Shop KD PKitchen Masal — demo storefront</h1>
+        <p class="p">This is a working front-end prototype. You can browse products, add them to cart, and simulate checkout. Payments and order processing are under development.</p>
+        <div class="ribbon">
+          <button class="btn btn-ghost" onclick="openAnnouncement()">What's being built?</button>
+          <div class="r">Beta</div>
+        </div>
+      </div>
+      <div style="max-width:360px">
+        <img src="https://via.placeholder.com/360x220.png?text=KD+PKitchen+Masal" alt="KD PKitchen Masal" style="width:100%;border-radius:12px;box-shadow:0 8px 30px rgba(2,6,23,0.06)" />
+      </div>
+    </section>
+
+    <section style="margin-top:16px">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+        <h2 style="margin:0">Products</h2>
+        <div class="muted">Showing <span id="count">0</span> products</div>
+      </div>
+
+      <div class="grid" id="productGrid"></div>
+    </section>
+  </main>
+
+  <button class="cart-btn" id="openCartBtn" title="Open cart">Cart (<span id="cartCount">0</span>)</button>
+  <div class="cart-panel" id="cartPanel" style="display:none">
+    <h3 style="margin:4px 6px">Your Cart</h3>
+    <div id="cartItems"></div>
+    <div style="padding:12px;display:flex;justify-content:space-between;align-items:center">
+      <div><strong>Total:</strong> <span id="cartTotal">0</span></div>
+      <div>
+        <button class="btn ghost" onclick="clearCart()">Clear</button>
+        <button class="btn btn-primary" onclick="checkout()">Checkout</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    KD PKitchen Masal — prototype. Contact: info@kdpkitchen.example (demo). Site status: <strong>Under Development</strong>.
+  </footer>
+
+  <script>
+    // Simple product data (static). Replace with API calls when backend is ready.
+    const PRODUCTS = [
+      {id: 'kdp-001', title: 'Masala Garam (100g)', price: 3.49, desc: 'A warming garam masala blend for curries and stews.', img: 'https://via.placeholder.com/400x300.png?text=Garam+Masala'},
+      {id: 'kdp-002', title: 'Tandoori Masala (150g)', price: 4.99, desc: 'Smoky tandoori spice mix, perfect for grilling.', img: 'https://via.placeholder.com/400x300.png?text=Tandoori+Masala'},
+      {id: 'kdp-003', title: 'Chili Powder (50g)', price: 2.49, desc: 'Hot and vibrant chili powder.', img: 'https://via.placeholder.com/400x300.png?text=Chili+Powder'},
+      {id: 'kdp-004', title: 'Curry Powder (120g)', price: 3.99, desc: 'Balanced curry powder for everyday cooking.', img: 'https://via.placeholder.com/400x300.png?text=Curry+Powder'},
+      {id: 'kdp-005', title: 'Turmeric (100g)', price: 2.99, desc: 'Bright turmeric powder, single-origin.', img: 'https://via.placeholder.com/400x300.png?text=Turmeric'},
+      {id: 'kdp-006', title: 'Whole Cumin (80g)', price: 3.19, desc: 'Aromatic whole cumin seeds.', img: 'https://via.placeholder.com/400x300.png?text=Whole+Cumin'}
+    ];
+
+    // Cart state persisted in localStorage
+    const CART_KEY = 'kdpkitchen_cart_v1';
+    let cart = JSON.parse(localStorage.getItem(CART_KEY) || '{}');
+
+    function saveCart(){
+      localStorage.setItem(CART_KEY, JSON.stringify(cart));
+      renderCart();
+    }
+
+    function addToCart(productId){
+      if(!cart[productId]) cart[productId]=0;
+      cart[productId]++;
+      saveCart();
+      flashCartCount();
+    }
+
+    function removeFromCart(productId){
+      delete cart[productId];
+      saveCart();
+    }
+
+    function changeQty(productId, delta){
+      if(!cart[productId]) return;
+      cart[productId] += delta;
+      if(cart[productId] <= 0) delete cart[productId];
+      saveCart();
+    }
+
+    function clearCart(){
+      if(!confirm('Clear cart?')) return;
+      cart = {};
+      saveCart();
+    }
+
+    function checkout(){
+      // This is intentionally non-functional (payments backend not connected).
+      alert('Checkout is under development. This demo will not process payments.');
+    }
+
+    function renderProducts(list){
+      const grid = document.getElementById('productGrid');
+      grid.innerHTML='';
+      list.forEach(p=>{
+        const card = document.createElement('div'); card.className='card';
+        card.innerHTML = `
+          <div class="thumb"><img src="${p.img}" alt="${p.title}"/></div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div class="prod-title">${escapeHtml(p.title)}</div>
+            <div class="muted">${escapeHtml(p.desc)}</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px">
+              <div class="price">NPR ${p.price.toFixed(2)}</div>
+              <div class="actions">
+                <button class="btn btn-ghost" onclick="viewProduct('${p.id}')">View</button>
+                <button class="btn btn-primary" onclick="addToCart('${p.id}')">Add</button>
+              </div>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+      document.getElementById('count').textContent = list.length;
+    }
+
+    function viewProduct(id){
+      const p = PRODUCTS.find(x=>x.id===id);
+      if(!p) return;
+      alert(p.title + '\n\n' + p.desc + '\n\nPrice: $' + p.price.toFixed(2) + '\n\nNote: Product pages will be added soon.');
+    }
+
+    function renderCart(){
+      const itemsEl = document.getElementById('cartItems');
+      itemsEl.innerHTML='';
+      let total=0, count=0;
+      for(const id of Object.keys(cart)){
+        const qty = cart[id];
+        const p = PRODUCTS.find(x=>x.id===id);
+        if(!p) continue;
+        count += qty;
+        total += p.price * qty;
+        const div = document.createElement('div'); div.className='cart-item';
+        div.innerHTML = `
+          <div class="small-thumb"><img src="${p.img}" alt="${p.title}" style="width:100%;height:100%;object-fit:cover"/></div>
+          <div style="flex:1">
+            <div style="font-weight:700">${escapeHtml(p.title)}</div>
+            <div class="muted">NPR ${p.price.toFixed(2)} × ${qty} = NPR ${(p.price*qty).toFixed(2)}</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+            <div class="qty">
+              <button class="ghost" onclick="changeQty('${id}', -1)">-</button>
+              <div style="min-width:26px;text-align:center">${qty}</div>
+              <button class="ghost" onclick="changeQty('${id}', 1)">+</button>
+            </div>
+            <button class="btn btn-ghost" onclick="removeFromCart('${id}')">Remove</button>
+          </div>
+        `;
+        itemsEl.appendChild(div);
+      }
+      document.getElementById('cartTotal').textContent = `NPR ${total.toFixed(2)}`;
+      document.getElementById('cartCount').textContent = count;
+      document.getElementById('cartCount').dataset.count = count;
+      document.getElementById('cartCount').textContent = count;
+      // small floating indicator
+      document.getElementById('cartCount').textContent = count;
+      localStorage.setItem('kd_last_cart_total', total.toFixed(2));
+    }
+
+    function flashCartCount(){
+      const el = document.getElementById('openCartBtn');
+      el.animate([{transform:'scale(1)'},{transform:'scale(1.06)'},{transform:'scale(1)'}],{duration:240});
+    }
+
+    // Simple search
+    document.getElementById('searchInput').addEventListener('input', (e)=>{
+      const q = e.target.value.trim().toLowerCase();
+      if(!q) return renderProducts(PRODUCTS);
+      const filtered = PRODUCTS.filter(p=> (p.title+p.desc).toLowerCase().includes(q));
+      renderProducts(filtered);
+    });
+
+    // Buttons
+    document.getElementById('openCartBtn').addEventListener('click', ()=>{
+      const panel = document.getElementById('cartPanel');
+      panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+    });
+
+    function openAnnouncement(){
+      alert('Features in progress:\n- Payment integration\n- User accounts & orders\n- Shipping & tracking\n- Product pages & reviews');
+    }
+
+    function escapeHtml(unsafe){
+      return unsafe.replace(/[&<>"']/g, function(m){
+        return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#039;"}[m];
+      });
+    }
+
+    // initialize
+    (function(){
+      renderProducts(PRODUCTS);
+      renderCart();
+    })();
+  </script>
+</body>
+</html>
