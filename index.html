@@ -25,9 +25,9 @@
     <div class="hero-text">
       <h2>Fresh, Authentic & Premium Masala</h2>
       <p>Shop pure Nepali spices, sourced locally and freshly packed.</p>
-      <button class="primary-btn">Explore Products</button>
+      <button class="primary-btn" id="explore-btn">Explore Products</button>
     </div>
-    <img src="https://via.placeholder.com/460x260.png?text=KDPKitchen+Masala" class="hero-img" />
+    <img src="t5.jpeg" class="hero-img" alt="KDP Kitchen Masala hero banner" />
   </section>
 
   <section class="products">
@@ -53,23 +53,37 @@
     const PRODUCTS = [
       {id:'001', name:'Garam Masala 100g', price:85, img:'https://via.placeholder.com/300?text=Garam+Masala'},
       {id:'002', name:'Tandoori Masala 150g', price:125, img:'https://via.placeholder.com/300?text=Tandoori+Masala'},
-      {id:'003', name:'Chilli Powder 50g', price:41, img:'https://via.placeholder.com/300?text=Chilli+Powder'},
+      {id:'003', name:'Chilli Powder 50g', price:41, img:'t1.png'},
       {id:'004', name:'Curry Powder 120g', price:120, img:'https://via.placeholder.com/300?text=Curry+Powder'},
-      {id:'005', name:'Turmeric Powder 100g', price:85, img:'https://via.placeholder.com/300?text=Turmeric'},
-      {id:'006', name:'Cumin Seeds 80g', price:60, img:'https://via.placeholder.com/300?text=Cumin'}
+      {id:'005', name:'Turmeric Powder 100g', price:76, img:'https://via.placeholder.com/300?text=Turmeric+100g'},
+      {id:'006', name:'Cumin Seeds 80g', price:60, img:'https://via.placeholder.com/300?text=Cumin'},
+      {id:'007', name:'Chilli Powder 100g', price:81, img:'t1.png'},
+      {id:'008', name:'Chilli Powder 200g', price:146, img:'t1.png'},
+      {id:'009', name:'Chilli Powder 500g', price:336, img:'t1.png'},
+      {id:'010', name:'Turmeric Powder 50g', price:36, img:'t3.png'},
+      {id:'011', name:'Turmeric Powder 200g', price:126, img:'t3.png'},
+      {id:'012', name:'Turmeric Powder 500g', price:276, img:'t3.png'},
+      {id:'013', name:'Coriander Powder 50g', price:36, img:'t2.png'},
+      {id:'014', name:'Coriander Powder 100g', price:76, img:'t2.png'},
+      {id:'015', name:'Coriander Powder 200g', price:126, img:'t2.png'},
+      {id:'016', name:'Coriander Powder 500g', price:276, img:'t2.png'}
     ];
 
     let cart = JSON.parse(localStorage.getItem('kdp_cart') || '{}');
 
-    function renderProducts(){
+    function renderProducts(filterText = ''){
       const list = document.getElementById('product-list');
       list.innerHTML = '';
 
-      PRODUCTS.forEach(p => {
+      const term = filterText.trim().toLowerCase();
+
+      PRODUCTS
+        .filter(p => !term || p.name.toLowerCase().includes(term))
+        .forEach(p => {
         const card = document.createElement('div');
         card.className = 'product-card';
         card.innerHTML = `
-          <img src="${p.img}" />
+          <img src="${p.img}" alt="${p.name}" />
           <h3>${p.name}</h3>
           <p class="price">NPR ${p.price}</p>
           <button onclick="addToCart('${p.id}')">Add to Cart</button>
@@ -103,7 +117,7 @@
         const row = document.createElement('div');
         row.className = 'cart-item';
         row.innerHTML = `
-          <img src="${p.img}" />
+          <img src="${p.img}" alt="${p.name} in cart" />
           <div>
             <strong>${p.name}</strong><br>
             NPR ${p.price} × ${qty}
@@ -130,12 +144,26 @@
     }
 
     function checkout(){
-      alert('Checkout under development');
+      const total = document.getElementById('cart-total').innerText;
+      if (!total || total === '0') {
+        alert('Your cart is empty. कृपया पहिले केही मसला जोड्नुहोस्।');
+        return;
+      }
+      alert(`धन्यवाद! Your order for NPR ${total} has been placed.\n(This is a demo checkout – no real payment.)`);
+      clearCart();
     }
 
     document.getElementById('cart-btn').onclick = () => {
       document.getElementById('cart-panel').classList.toggle('hidden');
     };
+
+    document.getElementById('explore-btn').onclick = () => {
+      document.querySelector('.products').scrollIntoView({behavior: 'smooth'});
+    };
+
+    document.getElementById('search').addEventListener('input', (e) => {
+      renderProducts(e.target.value);
+    });
 
     renderProducts();
     renderCart();
