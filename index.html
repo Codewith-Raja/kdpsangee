@@ -17,8 +17,12 @@
       </div>
     </div>
     <nav class="top-nav">
-      <input type="search" id="search" placeholder="Search products..." />
-      <a class="nav-link" href="about.html">About</a>
+      <button id="menu-toggle" class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
+      <div class="nav-links" id="nav-links">
+        <a class="nav-link" href="index.html" aria-current="page">Home</a>
+        <a class="nav-link" href="about.html">About</a>
+      </div>
+      <input type="search" id="search" class="nav-search" placeholder="Search products..." />
     </nav>
   </header>
 
@@ -38,7 +42,7 @@
     </div>
   </section>
 
-  <section class="supplier-banner" aria-label="Supplier information">
+  <section class="supplier-banner" id="contact" aria-label="Supplier information">
     <div class="supplier-card">
       <div class="supplier-main">
         <h3>Supplier: Sangee Spicy & Food Products</h3>
@@ -50,19 +54,6 @@
         </p>
       </div>
       <div class="supplier-actions">
-        <a class="btn btn-primary" href="tel:+977-9807858625">Call Now</a>
-        <a class="btn btn-outline" href="https://wa.me/9779807858625" target="_blank" rel="noopener noreferrer">WhatsApp</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="cta-block" aria-label="Call to action">
-    <div class="cta-block__inner">
-      <div>
-        <h3>Call now to order fresh masala</h3>
-        <p class="muted">Wholesale, retailer, and home delivery support across Nepal.</p>
-      </div>
-      <div class="cta-row">
         <a class="btn btn-primary" href="tel:+977-9807858625">Call Now</a>
         <a class="btn btn-outline" href="https://wa.me/9779807858625" target="_blank" rel="noopener noreferrer">WhatsApp</a>
       </div>
