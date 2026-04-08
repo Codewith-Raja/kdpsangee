@@ -44,11 +44,51 @@ function renderProducts(filterText = '') {
 }
 
 function init() {
+  const menuToggle = document.getElementById('menu-toggle');
+  const navLinks = document.getElementById('nav-links');
   const exploreBtn = document.getElementById('explore-btn');
-  const search = document.getElementById('search');
+
+  menuToggle?.addEventListener('click', () => {
+    navLinks?.classList.toggle('active');
+    const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
+    menuToggle.setAttribute('aria-expanded', String(!expanded));
+  });
+
+  // Close the menu after clicking a link (mobile UX)
+  navLinks?.addEventListener('click', (e) => {
+    if (!(e.target instanceof Element)) return;
+    if (e.target.closest('a')) {
+      navLinks.classList.remove('active');
+      menuToggle?.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // Close on outside click + Escape for professional UX
+  document.addEventListener('click', (e) => {
+    if (!navLinks || !menuToggle) return;
+    if (!navLinks.classList.contains('active')) return;
+    if (menuToggle.contains(e.target) || navLinks.contains(e.target)) return;
+    navLinks.classList.remove('active');
+    menuToggle.setAttribute('aria-expanded', 'false');
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (!navLinks || !menuToggle) return;
+    if (e.key !== 'Escape') return;
+    navLinks.classList.remove('active');
+    menuToggle.setAttribute('aria-expanded', 'false');
+  });
+
+  // If user rotates / resizes to desktop, close dropdown.
+  window.addEventListener('resize', () => {
+    if (!navLinks || !menuToggle) return;
+    if (window.innerWidth > 820) {
+      navLinks.classList.remove('active');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
 
   exploreBtn?.addEventListener('click', () => document.querySelector('.products')?.scrollIntoView({ behavior: 'smooth' }));
-  search?.addEventListener('input', (e) => renderProducts(e.target.value));
 
   renderProducts();
 }
