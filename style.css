@@ -87,6 +87,8 @@
     align-items:center;
     flex-wrap:wrap;
     max-width:100%;
+    flex:1;
+    justify-content:flex-end;
   }
 
   .menu-toggle{
@@ -98,6 +100,13 @@
     background:#fff;
     border:1px solid var(--border);
     cursor:pointer;
+    transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+  }
+
+  .menu-toggle:hover{
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+    border-color: rgba(194,65,12,0.25);
   }
 
   .nav-links{
@@ -105,17 +114,7 @@
     gap:15px;
     align-items:center;
   }
-  #search{
-    width:min(420px, 48vw);
-    padding:10px 12px;
-    border-radius:12px;
-    border:1px solid var(--border);
-    background:rgba(255,255,255,0.9);
-    color:var(--text);
-    outline:none;
-  }
-
-  #search::placeholder{ color:rgba(107,114,128,0.9); }
+  /* Search removed (kept layout clean) */
 
   .nav-link{
     display:inline-flex;
@@ -631,12 +630,28 @@
   .hidden{display:none;}
 
   @media (max-width: 820px){
-    .hero{
-      grid-template-columns: 1fr;
+    .header{
+      display:grid;
+      grid-template-columns: 1fr auto;
+      align-items:center;
+      row-gap:10px;
     }
-    #search{
+
+    .brand{
+      min-width:0;
+    }
+
+    .top-nav{
       width:100%;
+      grid-column: 1 / -1;
+      display:grid;
+      grid-template-columns: auto 1fr;
+      gap:10px;
+      justify-content:stretch;
+      align-items:start;
     }
+
+    /* search removed */
 
     .menu-toggle{ display:block; }
 
@@ -647,14 +662,19 @@
       align-items:stretch;
       gap:10px;
       background:#fff;
-      padding:10px 0;
+      padding:10px;
       border:1px solid var(--border);
       border-radius:12px;
+      box-shadow: var(--shadow-sm);
     }
 
     .nav-links.active{ display:flex; }
 
     .nav-link{ width:100%; justify-content:flex-start; }
+
+    .hero{
+      grid-template-columns: 1fr;
+    }
 
     .supplier-card{
       flex-direction:column;
@@ -695,9 +715,7 @@
     .product-grid{
       grid-template-columns: 1fr;
     }
-    #search{
-      width: 100%;
-    }
+    /* search removed */
     .hero-text h2{
       font-size:28px;
     }
