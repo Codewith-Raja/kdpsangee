@@ -5,12 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>KDP Kitchen Masal</title>
   <meta name="description" content="Pure, traditional मसाला for homes, retailers & wholesale buyers across Nepal.">
+  <link rel="icon" type="image/x-icon" href="logo.ico" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header class="header">
     <div class="brand">
-      <div class="logo">KDP</div>
+      <img src="logo.ico" class="brand-logo" alt="KDP Kitchen Masal logo" />
       <div>
         <h1>KDP Kitchen Masal</h1>
         <p>Simpily Better Not the Others</p>
@@ -21,7 +22,6 @@
       <div class="nav-links" id="nav-links">
         <a class="nav-link" href="index.html" aria-current="page">Home</a>
         <a class="nav-link" href="about.html">About</a>
-        <a class="nav-link" href="#contact">Contact</a>
       </div>
     </nav>
   </header>
@@ -46,23 +46,73 @@
     <div class="supplier-card">
       <div class="supplier-main">
         <h3>Supplier: Sangee Spicy & Food Products</h3>
-        <p class="supplier-line"><strong>Phone:</strong> +977-9807858625</p>
-        <p class="supplier-line"><strong>Address:</strong> Pirari Chowk -14, Janakpurdham, Dhanusha, Madhesh Province, Nepal</p>
+        <p class="supplier-line"><strong>Phone:</strong> +977-9841938951</p>
+        <p class="supplier-line"><strong>Address:</strong> Dasharath Pokhari 8, Janakpurdham, Dhanusha, Madhesh Province, Nepal</p>
         <p class="supplier-line"><strong>100% शुद्ध • बिना मिलावट • पारंपरिक विधि से तैयार</strong></p>
         <p class="supplier-msg">
           If you want to buy our products, please call the number below. We provide home delivery across Nepal.
         </p>
       </div>
       <div class="supplier-actions">
-        <a class="btn btn-primary" href="tel:+977-9807858625">Call Now</a>
-        <a class="btn btn-outline" href="https://wa.me/9779807858625" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        <a class="btn btn-primary" href="tel:+977-9841938951">Call Now</a>
+        <a class="btn btn-outline" href="https://wa.me/9779841938951" target="_blank" rel="noopener noreferrer">WhatsApp</a>
       </div>
     </div>
   </section>
 
   <section class="products">
     <h2>Our Products</h2>
+    <p class="products-subtitle">Select a product and place your order instantly on WhatsApp.</p>
     <div id="product-list" class="product-grid"></div>
+  </section>
+
+  <section class="order-section hidden" id="order-section" aria-label="Order form">
+    <div class="order-card">
+      <div class="order-head">
+        <div>
+          <h2>Quick Order Confirmation</h2>
+          <p class="order-note">Fill your details to confirm order via WhatsApp. We will reply quickly.</p>
+        </div>
+        <button type="button" class="btn btn-outline order-close-btn" id="order-close-btn">Close</button>
+      </div>
+      <form id="order-form" class="order-form" novalidate>
+        <div class="form-grid">
+          <label>
+            Product
+            <input id="order-product" name="product" type="text" placeholder="Choose from product card" required readonly />
+          </label>
+          <label>
+            Product ID
+            <input id="order-product-id" name="productId" type="text" readonly />
+          </label>
+          <label>
+            Price (NPR)
+            <input id="order-price" name="price" type="number" readonly />
+          </label>
+          <label>
+            Quantity
+            <input id="order-qty" name="quantity" type="number" min="1" value="1" required />
+          </label>
+          <label>
+            Full Name
+            <input id="customer-name" name="name" type="text" placeholder="Your full name" required />
+          </label>
+          <label>
+            Phone Number
+            <input id="customer-phone" name="phone" type="tel" placeholder="+97798xxxxxxxx" required />
+          </label>
+          <label class="full-row">
+            Delivery Location
+            <input id="customer-location" name="location" type="text" placeholder="City / area / full address" required />
+          </label>
+          <label class="full-row">
+            Additional Note (Optional)
+            <textarea id="customer-note" name="note" rows="3" placeholder="Any note for supplier"></textarea>
+          </label>
+        </div>
+        <button type="submit" class="btn btn-primary">Confirm Order on WhatsApp</button>
+      </form>
+    </div>
   </section>
 
   <footer class="footer">
