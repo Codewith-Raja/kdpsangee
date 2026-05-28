@@ -13,7 +13,7 @@
     <div class="brand">
       <img src="logo.ico" class="brand-logo" alt="KDP Kitchen Masal logo" />
       <div>
-        <h1>KDP Kitchen Masal</h1>
+        <h1>KDP</h1>
         <p>Simpily Better Not the Others</p>
       </div>
     </div>
@@ -22,17 +22,20 @@
       <div class="nav-links" id="nav-links">
         <a class="nav-link" href="index.html" aria-current="page">Home</a>
         <a class="nav-link" href="about.html">About</a>
+        <a class="nav-link" href="#delivery-info">Delivery</a>
+        <a class="nav-link" href="#faq">FAQ</a>
       </div>
     </nav>
   </header>
 
-  <section class="hero">
-    <div class="hero-text">
+  <section class="hero" aria-label="Hero banner">
+    <div class="hero__overlay" aria-hidden="true"></div>
+    <div class="hero__content">
+      <span class="hero__eyebrow">Simply Better, Not The Others</span>
       <h2>Fresh, Authentic & Premium Masala</h2>
       <p>Pure, traditional मसाला for homes, retailers & wholesale buyers across Nepal.</p>
       <button class="primary-btn" id="explore-btn">Explore Products</button>
     </div>
-    <img src="t5.png" class="hero-img" alt="KDP Kitchen Masala hero banner" />
   </section>
 
   <section class="strip strip--trust" aria-label="Trust highlights">
@@ -50,7 +53,7 @@
         <p class="supplier-line"><strong>Address:</strong> Dasharath Pokhari 8, Janakpurdham, Dhanusha, Madhesh Province, Nepal</p>
         <p class="supplier-line"><strong>100% शुद्ध • बिना मिलावट • पारंपरिक विधि से तैयार</strong></p>
         <p class="supplier-msg">
-          If you want to buy our products, please call the number below. We provide home delivery across Nepal.
+          Home delivery available. Cash on Delivery (COD) inside Janakpur city and outside with location-based delivery fee.
         </p>
       </div>
       <div class="supplier-actions">
@@ -60,56 +63,96 @@
     </div>
   </section>
 
-  <section class="products">
-    <h2>Our Products</h2>
-    <p class="products-subtitle">Select a product and place your order instantly on WhatsApp.</p>
+  <section class="products" id="products">
+    <div class="products-header">
+      <div>
+        <h2>Our Products</h2>
+        <p class="products-subtitle">Search, filter by category, add to cart, then checkout on WhatsApp.</p>
+      </div>
+      <div class="products-tools">
+        <input type="search" id="product-search" class="search-input" placeholder="Search products..." autocomplete="off" />
+        <div class="category-bar" id="category-bar" role="tablist" aria-label="Product categories"></div>
+      </div>
+    </div>
     <div id="product-list" class="product-grid"></div>
   </section>
 
-  <section class="order-section hidden" id="order-section" aria-label="Order form">
+  <section class="delivery-section" id="delivery-info" aria-label="Delivery information">
+    <h2>Delivery Areas & Fees</h2>
+    <p class="section-lead">Cash on Delivery (COD) is available for all zones below. Delivery fee applies outside Janakpur city.</p>
+    <div class="delivery-grid" id="delivery-zones-display"></div>
+  </section>
+
+  <section class="faq-section" id="faq" aria-label="Frequently asked questions">
+    <h2>FAQ</h2>
+    <div class="faq-list" id="faq-list"></div>
+  </section>
+
+  <button type="button" class="cart-fab hidden" id="cart-fab" aria-label="Open cart">
+    <span class="cart-fab__icon" aria-hidden="true">🛒</span>
+    <span class="cart-fab__count" id="cart-fab-count">0</span>
+  </button>
+
+  <div class="cart-overlay hidden" id="cart-overlay" aria-hidden="true"></div>
+  <aside class="cart-drawer hidden" id="cart-drawer" aria-label="Shopping cart">
+    <div class="cart-drawer__head">
+      <h2>Your Cart</h2>
+      <button type="button" class="btn btn-outline cart-drawer__close" id="cart-close-btn">Close</button>
+    </div>
+    <div class="cart-drawer__body" id="cart-items"></div>
+    <div class="cart-drawer__foot">
+      <p class="cart-subtotal">Subtotal: <strong id="cart-subtotal">NPR 0</strong></p>
+      <button type="button" class="btn btn-primary" id="cart-checkout-btn">Proceed to Checkout</button>
+    </div>
+  </aside>
+
+  <section class="order-section hidden" id="checkout-section" aria-label="Checkout">
     <div class="order-card">
       <div class="order-head">
         <div>
-          <h2>Quick Order Confirmation</h2>
-          <p class="order-note">Fill your details to confirm order via WhatsApp. We will reply quickly.</p>
+          <h2>Checkout</h2>
+          <p class="order-note">Review your order and confirm on WhatsApp. Your details are saved on this device for next time.</p>
         </div>
-        <button type="button" class="btn btn-outline order-close-btn" id="order-close-btn">Close</button>
+        <button type="button" class="btn btn-outline order-close-btn" id="checkout-close-btn">Close</button>
       </div>
-      <form id="order-form" class="order-form" novalidate>
+
+      <div class="checkout-summary" id="checkout-cart-summary"></div>
+
+      <form id="checkout-form" class="order-form" novalidate>
         <div class="form-grid">
-          <label>
-            Product
-            <input id="order-product" name="product" type="text" placeholder="Choose from product card" required readonly />
-          </label>
-          <label>
-            Product ID
-            <input id="order-product-id" name="productId" type="text" readonly />
-          </label>
-          <label>
-            Price (NPR)
-            <input id="order-price" name="price" type="number" readonly />
-          </label>
-          <label>
-            Quantity
-            <input id="order-qty" name="quantity" type="number" min="1" value="1" required />
-          </label>
-          <label>
+          <label class="full-row">
             Full Name
-            <input id="customer-name" name="name" type="text" placeholder="Your full name" required />
-          </label>
-          <label>
-            Phone Number
-            <input id="customer-phone" name="phone" type="tel" placeholder="+97798xxxxxxxx" required />
+            <input id="customer-name" name="name" type="text" placeholder="Your full name" required autocomplete="name" />
           </label>
           <label class="full-row">
-            Delivery Location
-            <input id="customer-location" name="location" type="text" placeholder="City / area / full address" required />
+            Phone Number
+            <input id="customer-phone" name="phone" type="tel" placeholder="98xxxxxxxx" required autocomplete="tel" />
+          </label>
+          <label class="full-row">
+            Delivery Zone
+            <select id="delivery-zone" name="deliveryZone" required></select>
+          </label>
+          <label class="full-row">
+            Full Address & Landmark
+            <input id="customer-location" name="location" type="text" placeholder="Ward, area, street, landmark" required autocomplete="street-address" />
+          </label>
+          <label class="full-row">
+            Payment Method
+            <input id="payment-method" type="text" value="Cash on Delivery (COD)" readonly />
           </label>
           <label class="full-row">
             Additional Note (Optional)
-            <textarea id="customer-note" name="note" rows="3" placeholder="Any note for supplier"></textarea>
+            <textarea id="customer-note" name="note" rows="2" placeholder="Delivery time preference, etc."></textarea>
           </label>
         </div>
+
+        <div class="checkout-totals" id="checkout-totals">
+          <div class="checkout-totals__row"><span>Subtotal</span><span id="total-subtotal">NPR 0</span></div>
+          <div class="checkout-totals__row"><span>Delivery Fee</span><span id="total-delivery">NPR 0</span></div>
+          <div class="checkout-totals__row checkout-totals__row--grand"><span>Grand Total</span><span id="total-grand">NPR 0</span></div>
+        </div>
+
+        <p class="checkout-hint" id="checkout-hint"></p>
         <button type="submit" class="btn btn-primary">Confirm Order on WhatsApp</button>
       </form>
     </div>
@@ -121,7 +164,7 @@
 
   <nav class="mobile-quickbar" aria-label="Mobile quick actions">
     <a href="#product-list" class="mobile-quickbar__link">Products</a>
-    <a href="tel:+977-9841938951" class="mobile-quickbar__link">Call</a>
+    <button type="button" class="mobile-quickbar__link mobile-quickbar__btn" id="mobile-cart-btn">Cart</button>
     <a href="https://wa.me/9779841938951" target="_blank" rel="noopener noreferrer" class="mobile-quickbar__link mobile-quickbar__link--primary">WhatsApp</a>
   </nav>
 
