@@ -140,6 +140,7 @@ if (!stage || !canvas || !section) {
       renderer.setSize(Math.max(1, width), Math.max(1, height), false);
       camera.aspect = width / Math.max(1, height);
       camera.position.z = width < 520 ? 7.8 : 7;
+      root.position.y = width < 520 ? 0.42 : 0.18;
       camera.updateProjectionMatrix();
     };
 
