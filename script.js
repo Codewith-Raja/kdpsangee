@@ -1,8 +1,8 @@
 const PRODUCTS = [
-  { id: '001', name: 'Mustard Oil (Yellow) 1000ml', price: 390, img: 'm1.PNG', category: 'oil' },
-  { id: '002', name: 'Mustard Oil (Yellow) 500ml', price: 200, img: 'm1.PNG', category: 'oil' },
-  { id: '003', name: 'Mustard Oil (Black) 500ml', price: 185, img: 'm1.PNG', category: 'oil' },
-  { id: '004', name: 'Mustard Oil (Black) 1000ml', price: 370, img: 'm1.PNG', category: 'oil' },
+  { id: '001', name: 'Mustard Oil 1000ml', price: 390, img: 'm1.PNG', category: 'oil' },
+  { id: '002', name: 'Mustard Oil 500ml', price: 200, img: 'm1.PNG', category: 'oil' },
+  { id: '003', name: 'Mustard Oil (Tori) 500ml', price: 185, img: 'm1.PNG', category: 'oil' },
+  { id: '004', name: 'Mustard Oil (Tori) 1000ml', price: 370, img: 'm1.PNG', category: 'oil' },
   { id: '005', name: 'Chilli Powder 50g', price: 41, img: 'c1.PNG', category: 'chilli' },
   { id: '007', name: 'Chilli Powder 100g', price: 81, img: 'c1.PNG', category: 'chilli' },
   { id: '008', name: 'Chilli Powder 200g', price: 146, img: 'c1.PNG', category: 'chilli' },
