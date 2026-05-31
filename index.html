@@ -13,7 +13,7 @@
   <link rel="icon" href="logo.ico" sizes="any" />
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" sizes="180x180" />
   <link rel="manifest" href="manifest.webmanifest" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=6" />
 </head>
 <body>
   <header class="header">
@@ -53,15 +53,6 @@
   </section>
 
   <section class="future-view" id="future-view" aria-label="Animated 3D product view">
-    <div class="future-view__copy">
-      <span class="future-view__eyebrow">3D Future View</span>
-      <h2>Premium spices in motion</h2>
-      <p>Explore the KDP range with a smooth animated display built for mobile and desktop shopping.</p>
-      <div class="future-view__actions">
-        <a class="btn btn-primary" href="#products">Shop Products</a>
-        <a class="btn btn-outline" href="https://wa.me/9779841938951" target="_blank" rel="noopener noreferrer">Order on WhatsApp</a>
-      </div>
-    </div>
     <div class="future-view__stage" id="future-stage">
       <canvas id="future-canvas" aria-label="Animated 3D product showcase"></canvas>
       <div class="future-view__fallback" id="future-fallback" aria-hidden="true">
@@ -123,64 +114,82 @@
   <div class="cart-overlay hidden" id="cart-overlay" aria-hidden="true"></div>
   <aside class="cart-drawer hidden" id="cart-drawer" aria-label="Shopping cart">
     <div class="cart-drawer__head">
-      <h2>Your Cart</h2>
-      <button type="button" class="btn btn-outline cart-drawer__close" id="cart-close-btn">Close</button>
+      <div class="cart-brand">
+        <img src="logo.ico" alt="" class="cart-brand__logo" />
+        <div>
+          <span class="cart-brand__eyebrow">KDP Kitchen Masal</span>
+          <h2>Your Cart</h2>
+        </div>
+      </div>
+      <button type="button" class="cart-drawer__close" id="cart-close-btn" aria-label="Close cart">×</button>
     </div>
     <div class="cart-drawer__body" id="cart-items"></div>
     <div class="cart-drawer__foot">
-      <p class="cart-subtotal">Subtotal: <strong id="cart-subtotal">NPR 0</strong></p>
+      <div class="cart-summary">
+        <div class="cart-summary__row"><span>Subtotal</span><strong id="cart-subtotal">NPR 0</strong></div>
+        <div class="cart-summary__row"><span>Payment</span><strong>Cash on Delivery</strong></div>
+        <p class="cart-summary__hint" id="cart-min-hint">Minimum order NPR 300</p>
+      </div>
       <button type="button" class="btn btn-primary" id="cart-checkout-btn">Proceed to Checkout</button>
     </div>
   </aside>
 
-  <section class="order-section hidden" id="checkout-section" aria-label="Checkout">
+  <section class="order-section hidden" id="checkout-section" aria-label="Checkout" aria-hidden="true">
     <div class="order-card">
       <div class="order-head">
-        <div>
-          <h2>Checkout</h2>
+        <div class="order-brand">
+          <img src="logo.ico" alt="" class="order-brand__logo" />
+          <div>
+          <span class="order-brand__eyebrow">Secure COD Checkout</span>
+          <h2>Customer Details</h2>
           <p class="order-note">Review your order and confirm on WhatsApp. Your details are saved on this device for next time.</p>
+          </div>
         </div>
-        <button type="button" class="btn btn-outline order-close-btn" id="checkout-close-btn">Close</button>
+        <button type="button" class="order-close-btn" id="checkout-close-btn" aria-label="Cancel checkout">×</button>
       </div>
 
-      <div class="checkout-summary" id="checkout-cart-summary"></div>
-
       <form id="checkout-form" class="order-form" novalidate>
-        <div class="form-grid">
-          <label class="full-row">
-            Full Name
-            <input id="customer-name" name="name" type="text" placeholder="Your full name" required autocomplete="name" />
-          </label>
-          <label class="full-row">
-            Phone Number
-            <input id="customer-phone" name="phone" type="tel" placeholder="98xxxxxxxx" required autocomplete="tel" />
-          </label>
-          <label class="full-row">
-            Delivery Zone
-            <select id="delivery-zone" name="deliveryZone" required></select>
-          </label>
-          <label class="full-row">
-            Full Address & Landmark
-            <input id="customer-location" name="location" type="text" placeholder="Ward, area, street, landmark" required autocomplete="street-address" />
-          </label>
-          <label class="full-row">
-            Payment Method
-            <input id="payment-method" type="text" value="Cash on Delivery (COD)" readonly />
-          </label>
-          <label class="full-row">
-            Additional Note (Optional)
-            <textarea id="customer-note" name="note" rows="2" placeholder="Delivery time preference, etc."></textarea>
-          </label>
+        <div class="order-scroll">
+          <div class="checkout-summary" id="checkout-cart-summary"></div>
+
+          <div class="form-grid">
+            <label>
+              Full Name
+              <input id="customer-name" name="name" type="text" placeholder="Your full name" required autocomplete="name" />
+            </label>
+            <label>
+              Phone Number
+              <input id="customer-phone" name="phone" type="tel" placeholder="98xxxxxxxx" required autocomplete="tel" />
+            </label>
+            <label class="full-row">
+              Delivery Zone
+              <select id="delivery-zone" name="deliveryZone" required></select>
+            </label>
+            <label class="full-row">
+              Full Address & Landmark
+              <input id="customer-location" name="location" type="text" placeholder="Ward, area, street, landmark" required autocomplete="street-address" />
+            </label>
+            <label class="full-row">
+              Payment Method
+              <input id="payment-method" type="text" value="Cash on Delivery (COD)" readonly />
+            </label>
+            <label class="full-row">
+              Additional Note (Optional)
+              <textarea id="customer-note" name="note" rows="2" placeholder="Delivery time preference, etc."></textarea>
+            </label>
+          </div>
         </div>
 
-        <div class="checkout-totals" id="checkout-totals">
-          <div class="checkout-totals__row"><span>Subtotal</span><span id="total-subtotal">NPR 0</span></div>
-          <div class="checkout-totals__row"><span>Delivery Fee</span><span id="total-delivery">NPR 0</span></div>
-          <div class="checkout-totals__row checkout-totals__row--grand"><span>Grand Total</span><span id="total-grand">NPR 0</span></div>
-        </div>
+        <div class="checkout-footer">
+          <div class="checkout-totals" id="checkout-totals">
+            <div class="checkout-totals__row checkout-totals__row--grand"><span>Grand Total</span><span id="total-grand">NPR 0</span></div>
+          </div>
 
-        <p class="checkout-hint" id="checkout-hint"></p>
-        <button type="submit" class="btn btn-primary">Confirm Order on WhatsApp</button>
+          <p class="checkout-hint" id="checkout-hint"></p>
+          <div class="checkout-actions">
+            <button type="submit" class="btn btn-primary">Confirm on WhatsApp</button>
+          </div>
+        </div>
       </form>
     </div>
   </section>
@@ -195,7 +204,7 @@
     <a href="https://wa.me/9779841938951" target="_blank" rel="noopener noreferrer" class="mobile-quickbar__link mobile-quickbar__link--primary">WhatsApp</a>
   </nav>
 
-  <script type="module" src="three-showcase.js"></script>
-  <script src="script.js"></script>
+  <script type="module" src="three-showcase.js?v=2"></script>
+  <script src="script.js?v=5"></script>
 </body>
 </html>
