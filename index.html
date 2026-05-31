@@ -52,6 +52,26 @@
     </div>
   </section>
 
+  <section class="future-view" id="future-view" aria-label="Animated 3D product view">
+    <div class="future-view__copy">
+      <span class="future-view__eyebrow">3D Future View</span>
+      <h2>Premium spices in motion</h2>
+      <p>Explore the KDP range with a smooth animated display built for mobile and desktop shopping.</p>
+      <div class="future-view__actions">
+        <a class="btn btn-primary" href="#products">Shop Products</a>
+        <a class="btn btn-outline" href="https://wa.me/9779841938951" target="_blank" rel="noopener noreferrer">Order on WhatsApp</a>
+      </div>
+    </div>
+    <div class="future-view__stage" id="future-stage">
+      <canvas id="future-canvas" aria-label="Animated 3D product showcase"></canvas>
+      <div class="future-view__fallback" id="future-fallback" aria-hidden="true">
+        <img src="c1.PNG" alt="" />
+        <img src="h1.PNG" alt="" />
+        <img src="m1.PNG" alt="" />
+      </div>
+    </div>
+  </section>
+
   <section class="supplier-banner" id="contact" aria-label="Supplier information">
     <div class="supplier-card">
       <div class="supplier-main">
@@ -175,6 +195,7 @@
     <a href="https://wa.me/9779841938951" target="_blank" rel="noopener noreferrer" class="mobile-quickbar__link mobile-quickbar__link--primary">WhatsApp</a>
   </nav>
 
+  <script type="module" src="three-showcase.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
