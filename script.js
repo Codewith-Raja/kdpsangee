@@ -318,19 +318,41 @@ function renderCheckoutSummary() {
 
 function updateCartUI() {
   const count = getCartCount();
+  const subtotal = getCartSubtotal();
   const fab = document.getElementById('cart-fab');
   const fabCount = document.getElementById('cart-fab-count');
   const itemsEl = document.getElementById('cart-items');
   const subtotalEl = document.getElementById('cart-subtotal');
+  const minHint = document.getElementById('cart-min-hint');
+  const checkoutBtn = document.getElementById('cart-checkout-btn');
 
   if (fab) fab.classList.toggle('hidden', count === 0);
   if (fabCount) fabCount.textContent = String(count);
+  if (subtotalEl) subtotalEl.textContent = `NPR ${subtotal}`;
+  if (minHint) {
+    if (subtotal === 0) {
+      minHint.textContent = `Minimum order NPR ${MIN_ORDER_NPR}`;
+      minHint.classList.remove('cart-summary__hint--ready');
+    } else if (subtotal < MIN_ORDER_NPR) {
+      minHint.textContent = `Add NPR ${MIN_ORDER_NPR - subtotal} more to checkout`;
+      minHint.classList.remove('cart-summary__hint--ready');
+    } else {
+      minHint.textContent = 'Ready for checkout';
+      minHint.classList.add('cart-summary__hint--ready');
+    }
+  }
+  if (checkoutBtn) checkoutBtn.disabled = cart.length === 0 || subtotal < MIN_ORDER_NPR;
 
   if (!itemsEl) return;
 
   if (cart.length === 0) {
-    itemsEl.innerHTML = '<p class="empty-state">Cart is empty. Add products from the shop.</p>';
-    if (subtotalEl) subtotalEl.textContent = 'NPR 0';
+    itemsEl.innerHTML = `
+      <div class="cart-empty">
+        <div class="cart-empty__mark">KDP</div>
+        <h3>Your cart is empty</h3>
+        <p>Add your favorite masala, oil, and spice packs to start a WhatsApp order.</p>
+      </div>
+    `;
     return;
   }
 
@@ -340,35 +362,47 @@ function updateCartUI() {
       if (!p) return '';
       return `
       <div class="cart-line" data-product-id="${p.id}">
+        <img class="cart-line__img" src="${escapeHtml(p.img)}" alt="${escapeHtml(p.name)}" loading="lazy" />
         <div class="cart-line__info">
-          <strong>${escapeHtml(p.name)}</strong>
-          <span>NPR ${p.price} each</span>
+          <div class="cart-line__top">
+            <strong>${escapeHtml(p.name)}</strong>
+            <button type="button" class="cart-remove" data-id="${p.id}" aria-label="Remove ${escapeHtml(p.name)}">×</button>
+          </div>
+          <span class="cart-line__unit">NPR ${p.price} each</span>
+          <div class="cart-line__bottom">
+            <div class="cart-line__actions" aria-label="Quantity controls">
+              <button type="button" class="qty-btn" data-action="minus" data-id="${p.id}" aria-label="Decrease">−</button>
+              <span class="cart-line__qty">${line.qty}</span>
+              <button type="button" class="qty-btn" data-action="plus" data-id="${p.id}" aria-label="Increase">+</button>
+            </div>
+            <div class="cart-line__total">NPR ${p.price * line.qty}</div>
+          </div>
         </div>
-        <div class="cart-line__actions">
-          <button type="button" class="qty-btn" data-action="minus" data-id="${p.id}" aria-label="Decrease">−</button>
-          <span class="cart-line__qty">${line.qty}</span>
-          <button type="button" class="qty-btn" data-action="plus" data-id="${p.id}" aria-label="Increase">+</button>
-          <button type="button" class="cart-remove" data-id="${p.id}" aria-label="Remove">✕</button>
-        </div>
-        <div class="cart-line__total">NPR ${p.price * line.qty}</div>
       </div>
     `;
     })
     .join('');
 
-  if (subtotalEl) subtotalEl.textContent = `NPR ${getCartSubtotal()}`;
   renderCheckoutSummary();
 }
 
 function openCartDrawer() {
-  document.getElementById('cart-drawer')?.classList.remove('hidden');
-  document.getElementById('cart-overlay')?.classList.remove('hidden');
+  const drawer = document.getElementById('cart-drawer');
+  const overlay = document.getElementById('cart-overlay');
+  drawer?.classList.remove('hidden');
+  overlay?.classList.remove('hidden');
+  drawer?.setAttribute('aria-hidden', 'false');
+  overlay?.setAttribute('aria-hidden', 'false');
   document.body.classList.add('no-scroll');
 }
 
 function closeCartDrawer() {
-  document.getElementById('cart-drawer')?.classList.add('hidden');
-  document.getElementById('cart-overlay')?.classList.add('hidden');
+  const drawer = document.getElementById('cart-drawer');
+  const overlay = document.getElementById('cart-overlay');
+  drawer?.classList.add('hidden');
+  overlay?.classList.add('hidden');
+  drawer?.setAttribute('aria-hidden', 'true');
+  overlay?.setAttribute('aria-hidden', 'true');
   document.body.classList.remove('no-scroll');
 }
 
@@ -384,12 +418,18 @@ function showCheckout() {
   closeCartDrawer();
   fillCustomerForm();
   renderCheckoutSummary();
-  document.getElementById('checkout-section')?.classList.remove('hidden');
-  document.getElementById('checkout-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const checkout = document.getElementById('checkout-section');
+  checkout?.classList.remove('hidden');
+  checkout?.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('no-scroll');
+  setTimeout(() => document.getElementById('customer-name')?.focus(), 80);
 }
 
 function hideCheckout() {
-  document.getElementById('checkout-section')?.classList.add('hidden');
+  const checkout = document.getElementById('checkout-section');
+  checkout?.classList.add('hidden');
+  checkout?.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('no-scroll');
 }
 
 function buildWhatsAppMessage(order) {
@@ -528,6 +568,10 @@ function init() {
   document.getElementById('cart-checkout-btn')?.addEventListener('click', showCheckout);
 
   document.getElementById('checkout-close-btn')?.addEventListener('click', hideCheckout);
+  document.getElementById('checkout-cancel-btn')?.addEventListener('click', hideCheckout);
+  document.getElementById('checkout-section')?.addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) hideCheckout();
+  });
 
   document.getElementById('delivery-zone')?.addEventListener('change', updateCheckoutTotals);
 
