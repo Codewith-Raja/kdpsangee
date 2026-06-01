@@ -1,8 +1,8 @@
 const PRODUCTS = [
-  { id: '001', name: 'Mustard Oil 1000ml', price: 390, img: 'm1.PNG', category: 'oil' },
-  { id: '002', name: 'Mustard Oil 500ml', price: 200, img: 'm1.PNG', category: 'oil' },
-  { id: '003', name: 'Mustard Oil (Tori) 500ml', price: 185, img: 'm1.PNG', category: 'oil' },
-  { id: '004', name: 'Mustard Oil (Tori) 1000ml', price: 370, img: 'm1.PNG', category: 'oil' },
+  { id: '001', name: 'Mustard Oil Sairso 1000ml', price: 390, img: 'm1.PNG', category: 'oil' },
+  { id: '002', name: 'Mustard Oil Sairso 500ml', price: 200, img: 'm1.PNG', category: 'oil' },
+  { id: '003', name: 'Mustard Oil Tori 500ml', price: 185, img: 'm1.PNG', category: 'oil' },
+  { id: '004', name: 'Mustard Oil Tori 1000ml', price: 370, img: 'm1.PNG', category: 'oil' },
   { id: '005', name: 'Chilli Powder 50g', price: 41, img: 'c1.PNG', category: 'chilli' },
   { id: '007', name: 'Chilli Powder 100g', price: 81, img: 'c1.PNG', category: 'chilli' },
   { id: '008', name: 'Chilli Powder 200g', price: 146, img: 'c1.PNG', category: 'chilli' },
@@ -22,8 +22,8 @@ const PRODUCTS = [
 const PRODUCT_DETAILS = {
   '001': { badge: 'Popular', highlight: 'Family size', note: 'A full-size mustard oil pack for regular cooking and retail shelves.' },
   '002': { badge: 'Best Seller', highlight: 'Daily use', note: 'A balanced pack size for homes that want fresh mustard oil in smaller batches.' },
-  '003': { badge: 'Traditional', highlight: 'Strong aroma', note: 'Black mustard oil with a bold flavor profile for traditional cooking.' },
-  '004': { badge: 'Value Pack', highlight: 'Bulk value', note: 'A larger black mustard oil pack for frequent cooking needs.' },
+  '003': { badge: 'Traditional', highlight: 'Strong aroma', note: 'Tori mustard oil with a bold flavor profile for traditional cooking.' },
+  '004': { badge: 'Value Pack', highlight: 'Bulk value', note: 'A larger Tori mustard oil pack for frequent cooking needs.' },
   '005': { badge: 'Starter Pack', highlight: 'Fresh spice', note: 'A small chilli powder pack for trying the flavor or keeping spices fresh.' },
   '007': { badge: 'Popular', highlight: 'Kitchen essential', note: 'A useful chilli powder size for everyday cooking.' },
   '008': { badge: 'Best Seller', highlight: 'Balanced size', note: 'A practical chilli powder pack for families and regular buyers.' },
@@ -39,6 +39,76 @@ const PRODUCT_DETAILS = {
   '017': { badge: 'Premium', highlight: 'Rich flavor', note: 'A premium garam masala blend for finishing curries and special dishes.' },
   '018': { badge: 'Premium', highlight: 'Chef pick', note: 'A larger premium garam masala pack for regular flavorful cooking.' },
 };
+
+const PRODUCT_FAMILIES = [
+  {
+    id: 'mustard-oil',
+    name: 'Mustard Oil',
+    category: 'oil',
+    img: 'm1.PNG',
+    badge: 'Signature',
+    highlight: 'Cold pressed oil',
+    note: 'Pure mustard oil for daily cooking, available in Sairso and Tori profiles with home-friendly pack sizes.',
+    trustTitle: 'Cold Pressed Oil',
+    trustText: 'तेल कोल्ड प्रेस तकनीक से निकाला गया है—good for heart, digestion, and overall health.',
+    facts: ['Sairso & Tori options', 'Sealed bottle', 'COD delivery'],
+    defaultVariantId: '001',
+    variantLabel: 'Pack size',
+    variants: ['001', '002', '004', '003'],
+  },
+  {
+    id: 'chilli-powder',
+    name: 'Chilli Powder',
+    category: 'chilli',
+    img: 'c1.PNG',
+    badge: 'Bold',
+    highlight: 'Fresh spice heat',
+    note: 'Bright chilli powder for everyday cooking, stocked in compact and value packs.',
+    facts: ['No preservatives', 'Sealed pack', 'Fresh aroma'],
+    defaultVariantId: '007',
+    variantLabel: 'Pack size',
+    variants: ['005', '007', '008', '009'],
+  },
+  {
+    id: 'turmeric-powder',
+    name: 'Turmeric Powder',
+    category: 'turmeric',
+    img: 'h1.PNG',
+    badge: 'Pure',
+    highlight: 'Golden daily color',
+    note: 'Clean turmeric powder for regular kitchens, with sizes for trial, family, and retail use.',
+    facts: ['Natural color', 'Sealed pack', 'Daily cooking'],
+    defaultVariantId: '006',
+    variantLabel: 'Pack size',
+    variants: ['010', '006', '011', '012'],
+  },
+  {
+    id: 'coriander-powder',
+    name: 'Coriander Powder',
+    category: 'coriander',
+    img: 'd1.PNG',
+    badge: 'Aromatic',
+    highlight: 'Fresh ground flavor',
+    note: 'Coriander powder with a clean aroma for curries, vegetables, and daily masala bases.',
+    facts: ['Fresh aroma', 'Sealed pack', 'Family sizes'],
+    defaultVariantId: '014',
+    variantLabel: 'Pack size',
+    variants: ['013', '014', '015', '016'],
+  },
+  {
+    id: 'garam-masala',
+    name: 'Shahi Garam Masala',
+    category: 'masala',
+    img: 'g1.PNG',
+    badge: 'Premium',
+    highlight: 'Rich finishing blend',
+    note: 'A premium garam masala blend for finishing curries, special meals, and regular flavorful cooking.',
+    facts: ['Rich flavor', 'Sealed pack', 'Premium blend'],
+    defaultVariantId: '017',
+    variantLabel: 'Pack size',
+    variants: ['017', '018'],
+  },
+];
 
 const CATEGORIES = [
   { id: 'all', label: 'All' },
@@ -107,10 +177,35 @@ const WHATSAPP_NUMBER = '9779841938951';
 const MIN_ORDER_NPR = 300;
 const STORAGE_CART = 'kdp_cart_v1';
 const STORAGE_CUSTOMER = 'kdp_customer_v1';
+const HISTORY_OVERLAY_KEY = 'kdpOverlay';
 
 let cart = [];
 let activeCategory = 'all';
 let searchTerm = '';
+
+function getOpenOverlay() {
+  if (!document.getElementById('checkout-section')?.classList.contains('hidden')) return 'checkout';
+  if (!document.getElementById('quick-view')?.classList.contains('hidden')) return 'quick-view';
+  if (!document.getElementById('cart-drawer')?.classList.contains('hidden')) return 'cart';
+  return null;
+}
+
+function syncBodyScrollLock() {
+  document.body.classList.toggle('no-scroll', Boolean(getOpenOverlay()));
+}
+
+function getOverlayState() {
+  return history.state && history.state[HISTORY_OVERLAY_KEY];
+}
+
+function pushOverlayState(overlay) {
+  if (getOverlayState() === overlay) return;
+  history.pushState({ ...(history.state || {}), [HISTORY_OVERLAY_KEY]: overlay }, '', window.location.href);
+}
+
+function replaceOverlayState(overlay) {
+  history.replaceState({ ...(history.state || {}), [HISTORY_OVERLAY_KEY]: overlay }, '', window.location.href);
+}
 
 function loadCart() {
   try {
@@ -142,6 +237,35 @@ function getProduct(id) {
   return PRODUCTS.find((p) => p.id === id);
 }
 
+function getProductFamily(id) {
+  return PRODUCT_FAMILIES.find((family) => family.id === id);
+}
+
+function getFamilyForProduct(productId) {
+  return PRODUCT_FAMILIES.find((family) => family.variants.includes(productId));
+}
+
+function getVariantLabel(product) {
+  return product.name
+    .replace(/\bMustard Oil\b/i, '')
+    .replace(/\bChilli Powder\b/i, '')
+    .replace(/\bTurmeric Powder\b/i, '')
+    .replace(/\bCoriander Powder\b/i, '')
+    .replace(/\bShahi Garam Masala\b/i, '')
+    .replace(/[()]/g, '')
+    .trim();
+}
+
+function getFamilyPriceRange(family) {
+  const prices = family.variants
+    .map((id) => getProduct(id)?.price)
+    .filter((price) => typeof price === 'number');
+  if (!prices.length) return '';
+  const min = Math.min(...prices);
+  const max = Math.max(...prices);
+  return min === max ? `NPR ${min}` : `NPR ${min} - ${max}`;
+}
+
 function getProductDetail(productId) {
   return PRODUCT_DETAILS[productId] || {
     badge: 'Fresh',
@@ -156,6 +280,17 @@ function getProductTrust(product) {
       title: 'Cold Pressed Oil',
       text: 'तेल कोल्ड प्रेस तकनीक से निकाला गया है—good for heart, digestion, and overall health.',
     };
+  }
+
+  return {
+    title: 'Traditional Processing',
+    text: 'मसाला पुरानो संस्कृति अनुसार ढेकी र जात्तामा तयार गरिन्छ—पारंपरिक तरीके से कुटे हुए (prepared the old way using dheki & jatta / hand-pounded traditional grinding).',
+  };
+}
+
+function getFamilyTrust(family) {
+  if (family.trustTitle && family.trustText) {
+    return { title: family.trustTitle, text: family.trustText };
   }
 
   return {
@@ -223,9 +358,14 @@ function renderProducts() {
   if (!list) return;
 
   const term = searchTerm.trim().toLowerCase();
-  const filtered = PRODUCTS.filter((p) => {
-    const matchCat = activeCategory === 'all' || p.category === activeCategory;
-    const matchSearch = !term || p.name.toLowerCase().includes(term);
+  const filtered = PRODUCT_FAMILIES.filter((family) => {
+    const matchCat = activeCategory === 'all' || family.category === activeCategory;
+    const searchable = [
+      family.name,
+      family.highlight,
+      ...family.variants.map((id) => getProduct(id)?.name || ''),
+    ].join(' ').toLowerCase();
+    const matchSearch = !term || searchable.includes(term);
     return matchCat && matchSearch;
   });
 
@@ -236,23 +376,27 @@ function renderProducts() {
 
   list.innerHTML = filtered
     .map(
-      (p) => {
-        const detail = getProductDetail(p.id);
+      (family) => {
+        const variants = family.variants.map(getProduct).filter(Boolean);
+        const category = CATEGORIES.find((c) => c.id === family.category)?.label || '';
         return `
-    <article class="product-card" data-product-card="${p.id}">
-      <button class="product-image-btn" type="button" data-view-product-id="${p.id}" aria-label="View ${escapeHtml(p.name)} details">
-        <span class="product-badge">${escapeHtml(detail.badge)}</span>
-        <img src="${escapeHtml(p.img)}" alt="${escapeHtml(p.name)}" loading="lazy" />
+    <article class="product-card product-card--family" data-product-card="${family.id}">
+      <button class="product-image-btn" type="button" data-view-family-id="${family.id}" aria-label="View ${escapeHtml(family.name)} details">
+        <span class="product-badge">${escapeHtml(family.badge)}</span>
+        <img src="${escapeHtml(family.img)}" alt="${escapeHtml(family.name)}" loading="lazy" />
       </button>
       <div class="product-meta">
-        <span class="product-category-tag">${escapeHtml(CATEGORIES.find((c) => c.id === p.category)?.label || '')}</span>
-        <h3>${escapeHtml(p.name)}</h3>
-        <p class="product-highlight">${escapeHtml(detail.highlight)}</p>
-        <p class="price">NPR ${p.price}</p>
+        <span class="product-category-tag">${escapeHtml(category)}</span>
+        <h3>${escapeHtml(family.name)}</h3>
+        <p class="product-highlight">${escapeHtml(family.highlight)}</p>
+        <div class="product-variant-strip" aria-label="Available pack sizes">
+          ${variants.map((variant) => `<span>${escapeHtml(getVariantLabel(variant))}</span>`).join('')}
+        </div>
+        <p class="price">${escapeHtml(getFamilyPriceRange(family))}</p>
       </div>
       <div class="product-actions">
-        <button class="btn btn-outline view-product-btn" type="button" data-view-product-id="${p.id}">View</button>
-        <button class="btn btn-primary add-cart-btn" type="button" data-product-id="${p.id}">Add</button>
+        <button class="btn btn-outline view-product-btn" type="button" data-view-family-id="${family.id}">View</button>
+        <button class="btn btn-primary select-product-btn" type="button" data-view-family-id="${family.id}">Select Size</button>
       </div>
     </article>
   `;
@@ -261,57 +405,84 @@ function renderProducts() {
     .join('');
 }
 
-function openQuickView(productId) {
-  const product = getProduct(productId);
+function openQuickView(familyId, selectedVariantId, options = {}) {
+  const family = getProductFamily(familyId) || getFamilyForProduct(familyId);
+  if (!family) return;
+  const variants = family.variants.map(getProduct).filter(Boolean);
+  const product = getProduct(selectedVariantId) || getProduct(family.defaultVariantId) || variants[0];
   const modal = document.getElementById('quick-view');
   const body = document.getElementById('quick-view-body');
   if (!product || !modal || !body) return;
+  const wasClosed = modal.classList.contains('hidden');
 
-  const detail = getProductDetail(product.id);
-  const trust = getProductTrust(product);
-  const category = CATEGORIES.find((c) => c.id === product.category)?.label || '';
+  const trust = getFamilyTrust(family);
+  const category = CATEGORIES.find((c) => c.id === family.category)?.label || '';
   const qty = cart.find((line) => line.productId === product.id)?.qty || 0;
 
   body.innerHTML = `
     <div class="quick-view__media">
-      <span class="product-badge quick-view__badge">${escapeHtml(detail.badge)}</span>
-      <img src="${escapeHtml(product.img)}" alt="${escapeHtml(product.name)}" />
+      <span class="product-badge quick-view__badge">${escapeHtml(family.badge)}</span>
+      <img src="${escapeHtml(family.img)}" alt="${escapeHtml(family.name)}" />
     </div>
     <div class="quick-view__content">
       <span class="quick-view__category">${escapeHtml(category)}</span>
-      <h2 id="quick-view-title">${escapeHtml(product.name)}</h2>
-      <p class="quick-view__note">${escapeHtml(detail.note)}</p>
+      <h2 id="quick-view-title">${escapeHtml(family.name)}</h2>
+      <p class="quick-view__note">${escapeHtml(family.note)}</p>
       <div class="quick-view__trust">
         <span>${escapeHtml(trust.title)}</span>
         <p>${escapeHtml(trust.text)}</p>
       </div>
-      <div class="quick-view__facts">
-        <span>No preservatives</span>
-        <span>Sealed pack</span>
-        <span>COD delivery</span>
+      <div class="quick-view__variants">
+        <div class="quick-view__variants-head">
+          <span>${escapeHtml(family.variantLabel)}</span>
+          <strong>${escapeHtml(getVariantLabel(product))}</strong>
+        </div>
+        <div class="variant-options" role="radiogroup" aria-label="${escapeHtml(family.name)} pack size">
+          ${variants.map((variant) => `
+            <button
+              type="button"
+              class="variant-option${variant.id === product.id ? ' active' : ''}"
+              data-family-id="${family.id}"
+              data-variant-id="${variant.id}"
+              role="radio"
+              aria-checked="${variant.id === product.id ? 'true' : 'false'}"
+            >
+              <span>${escapeHtml(getVariantLabel(variant))}</span>
+              <strong>NPR ${variant.price}</strong>
+            </button>
+          `).join('')}
+        </div>
       </div>
       <div class="quick-view__buy">
         <div>
-          <span class="quick-view__price-label">Price</span>
+          <span class="quick-view__price-label">Selected price</span>
           <strong>NPR ${product.price}</strong>
         </div>
-        <button class="btn btn-primary quick-view__add" type="button" data-product-id="${product.id}">
-          ${qty > 0 ? `Add More (${qty} in cart)` : 'Add to Cart'}
+        <button class="btn btn-primary quick-view__add" type="button" data-family-id="${family.id}" data-product-id="${product.id}">
+          ${qty > 0 ? `Add More (${qty} in cart)` : 'Add Selected'}
         </button>
+      </div>
+      <div class="quick-view__facts">
+        ${family.facts.map((fact) => `<span>${escapeHtml(fact)}</span>`).join('')}
       </div>
     </div>
   `;
   modal.classList.remove('hidden');
   modal.setAttribute('aria-hidden', 'false');
-  document.body.classList.add('no-scroll');
+  syncBodyScrollLock();
+  if (wasClosed && options.syncHistory !== false) pushOverlayState('quick-view');
   document.getElementById('quick-view-close')?.focus();
 }
 
-function closeQuickView() {
+function closeQuickView(options = {}) {
+  if (options.syncHistory !== false && getOverlayState() === 'quick-view') {
+    history.back();
+    return;
+  }
   const modal = document.getElementById('quick-view');
   modal?.classList.add('hidden');
   modal?.setAttribute('aria-hidden', 'true');
-  document.body.classList.remove('no-scroll');
+  syncBodyScrollLock();
 }
 
 function renderCategoryBar() {
@@ -498,24 +669,31 @@ function updateCartUI() {
   renderCheckoutSummary();
 }
 
-function openCartDrawer() {
+function openCartDrawer(options = {}) {
   const drawer = document.getElementById('cart-drawer');
   const overlay = document.getElementById('cart-overlay');
+  if (!drawer || !overlay) return;
+  const wasClosed = drawer.classList.contains('hidden');
   drawer?.classList.remove('hidden');
   overlay?.classList.remove('hidden');
   drawer?.setAttribute('aria-hidden', 'false');
   overlay?.setAttribute('aria-hidden', 'false');
-  document.body.classList.add('no-scroll');
+  syncBodyScrollLock();
+  if (wasClosed && options.syncHistory !== false) pushOverlayState('cart');
 }
 
-function closeCartDrawer() {
+function closeCartDrawer(options = {}) {
+  if (options.syncHistory !== false && getOverlayState() === 'cart') {
+    history.back();
+    return;
+  }
   const drawer = document.getElementById('cart-drawer');
   const overlay = document.getElementById('cart-overlay');
   drawer?.classList.add('hidden');
   overlay?.classList.add('hidden');
   drawer?.setAttribute('aria-hidden', 'true');
   overlay?.setAttribute('aria-hidden', 'true');
-  document.body.classList.remove('no-scroll');
+  syncBodyScrollLock();
 }
 
 function showCheckout() {
@@ -527,21 +705,27 @@ function showCheckout() {
     alert(`Minimum order is NPR ${MIN_ORDER_NPR}. Please add more items.`);
     return;
   }
-  closeCartDrawer();
+  closeCartDrawer({ syncHistory: false });
   fillCustomerForm();
   renderCheckoutSummary();
   const checkout = document.getElementById('checkout-section');
   checkout?.classList.remove('hidden');
   checkout?.setAttribute('aria-hidden', 'false');
-  document.body.classList.add('no-scroll');
+  syncBodyScrollLock();
+  if (getOverlayState() === 'cart') replaceOverlayState('checkout');
+  else pushOverlayState('checkout');
   setTimeout(() => document.getElementById('customer-name')?.focus(), 80);
 }
 
-function hideCheckout() {
+function hideCheckout(options = {}) {
+  if (options.syncHistory !== false && getOverlayState() === 'checkout') {
+    history.back();
+    return;
+  }
   const checkout = document.getElementById('checkout-section');
   checkout?.classList.add('hidden');
   checkout?.setAttribute('aria-hidden', 'true');
-  document.body.classList.remove('no-scroll');
+  syncBodyScrollLock();
 }
 
 function attachSwipeToClose() {
@@ -613,6 +797,40 @@ function attachSwipeToClose() {
   }, { passive: true });
 }
 
+function closeTopOverlayFromHistory() {
+  const overlay = getOpenOverlay();
+  if (overlay === 'checkout') {
+    hideCheckout({ syncHistory: false });
+    return true;
+  }
+  if (overlay === 'quick-view') {
+    closeQuickView({ syncHistory: false });
+    return true;
+  }
+  if (overlay === 'cart') {
+    closeCartDrawer({ syncHistory: false });
+    return true;
+  }
+  return false;
+}
+
+function closeTopOverlay() {
+  const overlay = getOpenOverlay();
+  if (overlay === 'checkout') {
+    hideCheckout();
+    return true;
+  }
+  if (overlay === 'quick-view') {
+    closeQuickView();
+    return true;
+  }
+  if (overlay === 'cart') {
+    closeCartDrawer();
+    return true;
+  }
+  return false;
+}
+
 function buildWhatsAppMessage(order) {
   const lines = [
     'Hello KDP Kitchen Masal, I want to confirm this order:',
@@ -677,9 +895,25 @@ function init() {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       closeMenu();
-      closeCartDrawer();
-      hideCheckout();
-      closeQuickView();
+      if (!closeTopOverlay()) {
+        closeCartDrawer();
+        hideCheckout();
+        closeQuickView();
+      }
+    }
+  });
+
+  window.addEventListener('popstate', (e) => {
+    const requestedOverlay = e.state && e.state[HISTORY_OVERLAY_KEY];
+    const openOverlay = getOpenOverlay();
+
+    if (openOverlay && openOverlay !== requestedOverlay) {
+      closeTopOverlayFromHistory();
+      return;
+    }
+
+    if (!openOverlay && requestedOverlay === 'cart') {
+      openCartDrawer({ syncHistory: false });
     }
   });
 
@@ -714,9 +948,9 @@ function init() {
 
   document.getElementById('product-list')?.addEventListener('click', (e) => {
     if (!(e.target instanceof Element)) return;
-    const viewBtn = e.target.closest('[data-view-product-id]');
+    const viewBtn = e.target.closest('[data-view-family-id]');
     if (viewBtn) {
-      const id = viewBtn.getAttribute('data-view-product-id');
+      const id = viewBtn.getAttribute('data-view-family-id');
       if (id) openQuickView(id);
       return;
     }
@@ -737,12 +971,20 @@ function init() {
       closeQuickView();
       return;
     }
+    const variantBtn = e.target.closest('.variant-option');
+    if (variantBtn) {
+      const familyId = variantBtn.getAttribute('data-family-id');
+      const variantId = variantBtn.getAttribute('data-variant-id');
+      if (familyId && variantId) openQuickView(familyId, variantId);
+      return;
+    }
     const addBtn = e.target.closest('.quick-view__add');
     if (!addBtn) return;
     const id = addBtn.getAttribute('data-product-id');
+    const familyId = addBtn.getAttribute('data-family-id');
     if (!id) return;
     addToCart(id, 1);
-    openQuickView(id);
+    openQuickView(familyId || id, id);
   });
 
   document.getElementById('header-cart-btn')?.addEventListener('click', openCartDrawer);
