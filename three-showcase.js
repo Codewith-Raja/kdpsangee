@@ -207,3 +207,4 @@ if (!stage || !canvas || !section) {
     showFallback();
   }
 }
+
