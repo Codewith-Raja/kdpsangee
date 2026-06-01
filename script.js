@@ -19,6 +19,27 @@ const PRODUCTS = [
   { id: '018', name: 'Shahi Garam Masala 100g', price: 180, img: 'g1.PNG', category: 'masala' },
 ];
 
+const PRODUCT_DETAILS = {
+  '001': { badge: 'Popular', highlight: 'Family size', note: 'A full-size mustard oil pack for regular cooking and retail shelves.' },
+  '002': { badge: 'Best Seller', highlight: 'Daily use', note: 'A balanced pack size for homes that want fresh mustard oil in smaller batches.' },
+  '003': { badge: 'Traditional', highlight: 'Strong aroma', note: 'Black mustard oil with a bold flavor profile for traditional cooking.' },
+  '004': { badge: 'Value Pack', highlight: 'Bulk value', note: 'A larger black mustard oil pack for frequent cooking needs.' },
+  '005': { badge: 'Starter Pack', highlight: 'Fresh spice', note: 'A small chilli powder pack for trying the flavor or keeping spices fresh.' },
+  '007': { badge: 'Popular', highlight: 'Kitchen essential', note: 'A useful chilli powder size for everyday cooking.' },
+  '008': { badge: 'Best Seller', highlight: 'Balanced size', note: 'A practical chilli powder pack for families and regular buyers.' },
+  '009': { badge: 'Value Pack', highlight: 'Retail friendly', note: 'A larger chilli powder pack for homes, retailers, and bulk use.' },
+  '010': { badge: 'Pure', highlight: 'Daily cooking', note: 'A compact turmeric pack for fresh daily use.' },
+  '006': { badge: 'Popular', highlight: 'Golden color', note: 'A clean turmeric powder pack for everyday recipes.' },
+  '011': { badge: 'Best Seller', highlight: 'Family pick', note: 'A balanced turmeric powder pack for regular household use.' },
+  '012': { badge: 'Value Pack', highlight: 'Bulk value', note: 'A larger turmeric pack for families and retail counters.' },
+  '013': { badge: 'Pure', highlight: 'Fresh aroma', note: 'A small coriander powder pack for keeping masala fresh.' },
+  '014': { badge: 'Popular', highlight: 'Daily use', note: 'A regular coriander powder size for everyday cooking.' },
+  '015': { badge: 'Best Seller', highlight: 'Balanced size', note: 'A family-friendly coriander pack for frequent use.' },
+  '016': { badge: 'Value Pack', highlight: 'Bulk value', note: 'A larger coriander powder pack for high-use kitchens.' },
+  '017': { badge: 'Premium', highlight: 'Rich flavor', note: 'A premium garam masala blend for finishing curries and special dishes.' },
+  '018': { badge: 'Premium', highlight: 'Chef pick', note: 'A larger premium garam masala pack for regular flavorful cooking.' },
+};
+
 const CATEGORIES = [
   { id: 'all', label: 'All' },
   { id: 'oil', label: 'Mustard Oil' },
@@ -121,6 +142,28 @@ function getProduct(id) {
   return PRODUCTS.find((p) => p.id === id);
 }
 
+function getProductDetail(productId) {
+  return PRODUCT_DETAILS[productId] || {
+    badge: 'Fresh',
+    highlight: 'Quality pack',
+    note: 'Freshly packed for clean daily cooking.',
+  };
+}
+
+function getProductTrust(product) {
+  if (product.category === 'oil') {
+    return {
+      title: 'Cold Pressed Oil',
+      text: 'तेल कोल्ड प्रेस तकनीक से निकाला गया है—good for heart, digestion, and overall health.',
+    };
+  }
+
+  return {
+    title: 'Traditional Processing',
+    text: 'मसाला पुरानो संस्कृति अनुसार ढेकी र जात्तामा तयार गरिन्छ—पारंपरिक तरीके से कुटे हुए (prepared the old way using dheki & jatta / hand-pounded traditional grinding).',
+  };
+}
+
 function getCartCount() {
   return cart.reduce((sum, line) => sum + line.qty, 0);
 }
@@ -193,19 +236,82 @@ function renderProducts() {
 
   list.innerHTML = filtered
     .map(
-      (p) => `
-    <article class="product-card">
-      <img src="${escapeHtml(p.img)}" alt="${escapeHtml(p.name)}" loading="lazy" />
+      (p) => {
+        const detail = getProductDetail(p.id);
+        return `
+    <article class="product-card" data-product-card="${p.id}">
+      <button class="product-image-btn" type="button" data-view-product-id="${p.id}" aria-label="View ${escapeHtml(p.name)} details">
+        <span class="product-badge">${escapeHtml(detail.badge)}</span>
+        <img src="${escapeHtml(p.img)}" alt="${escapeHtml(p.name)}" loading="lazy" />
+      </button>
       <div class="product-meta">
         <span class="product-category-tag">${escapeHtml(CATEGORIES.find((c) => c.id === p.category)?.label || '')}</span>
         <h3>${escapeHtml(p.name)}</h3>
+        <p class="product-highlight">${escapeHtml(detail.highlight)}</p>
         <p class="price">NPR ${p.price}</p>
       </div>
-      <button class="btn btn-primary add-cart-btn" type="button" data-product-id="${p.id}">Add to Cart</button>
+      <div class="product-actions">
+        <button class="btn btn-outline view-product-btn" type="button" data-view-product-id="${p.id}">View</button>
+        <button class="btn btn-primary add-cart-btn" type="button" data-product-id="${p.id}">Add</button>
+      </div>
     </article>
-  `
+  `;
+      }
     )
     .join('');
+}
+
+function openQuickView(productId) {
+  const product = getProduct(productId);
+  const modal = document.getElementById('quick-view');
+  const body = document.getElementById('quick-view-body');
+  if (!product || !modal || !body) return;
+
+  const detail = getProductDetail(product.id);
+  const trust = getProductTrust(product);
+  const category = CATEGORIES.find((c) => c.id === product.category)?.label || '';
+  const qty = cart.find((line) => line.productId === product.id)?.qty || 0;
+
+  body.innerHTML = `
+    <div class="quick-view__media">
+      <span class="product-badge quick-view__badge">${escapeHtml(detail.badge)}</span>
+      <img src="${escapeHtml(product.img)}" alt="${escapeHtml(product.name)}" />
+    </div>
+    <div class="quick-view__content">
+      <span class="quick-view__category">${escapeHtml(category)}</span>
+      <h2 id="quick-view-title">${escapeHtml(product.name)}</h2>
+      <p class="quick-view__note">${escapeHtml(detail.note)}</p>
+      <div class="quick-view__trust">
+        <span>${escapeHtml(trust.title)}</span>
+        <p>${escapeHtml(trust.text)}</p>
+      </div>
+      <div class="quick-view__facts">
+        <span>No preservatives</span>
+        <span>Sealed pack</span>
+        <span>COD delivery</span>
+      </div>
+      <div class="quick-view__buy">
+        <div>
+          <span class="quick-view__price-label">Price</span>
+          <strong>NPR ${product.price}</strong>
+        </div>
+        <button class="btn btn-primary quick-view__add" type="button" data-product-id="${product.id}">
+          ${qty > 0 ? `Add More (${qty} in cart)` : 'Add to Cart'}
+        </button>
+      </div>
+    </div>
+  `;
+  modal.classList.remove('hidden');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('no-scroll');
+  document.getElementById('quick-view-close')?.focus();
+}
+
+function closeQuickView() {
+  const modal = document.getElementById('quick-view');
+  modal?.classList.add('hidden');
+  modal?.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('no-scroll');
 }
 
 function renderCategoryBar() {
@@ -319,15 +425,21 @@ function renderCheckoutSummary() {
 function updateCartUI() {
   const count = getCartCount();
   const subtotal = getCartSubtotal();
-  const fab = document.getElementById('cart-fab');
-  const fabCount = document.getElementById('cart-fab-count');
+  const headerCartCount = document.getElementById('header-cart-count');
+  const mobileHeaderCartCount = document.getElementById('mobile-header-cart-count');
   const itemsEl = document.getElementById('cart-items');
   const subtotalEl = document.getElementById('cart-subtotal');
   const minHint = document.getElementById('cart-min-hint');
   const checkoutBtn = document.getElementById('cart-checkout-btn');
 
-  if (fab) fab.classList.toggle('hidden', count === 0);
-  if (fabCount) fabCount.textContent = String(count);
+  if (headerCartCount) {
+    headerCartCount.textContent = String(count);
+    headerCartCount.classList.toggle('hidden', count === 0);
+  }
+  if (mobileHeaderCartCount) {
+    mobileHeaderCartCount.textContent = String(count);
+    mobileHeaderCartCount.classList.toggle('hidden', count === 0);
+  }
   if (subtotalEl) subtotalEl.textContent = `NPR ${subtotal}`;
   if (minHint) {
     if (subtotal === 0) {
@@ -432,6 +544,75 @@ function hideCheckout() {
   document.body.classList.remove('no-scroll');
 }
 
+function attachSwipeToClose() {
+  const drawer = document.getElementById('cart-drawer');
+  const checkout = document.getElementById('checkout-section');
+  const orderCard = document.querySelector('.order-card');
+  let startX = 0;
+  let startY = 0;
+  let tracking = null;
+
+  const resetTransform = () => {
+    if (drawer) drawer.style.transform = '';
+    if (orderCard) orderCard.style.transform = '';
+  };
+
+  drawer?.addEventListener('touchstart', (e) => {
+    const touch = e.touches[0];
+    startX = touch.clientX;
+    startY = touch.clientY;
+    tracking = 'cart';
+  }, { passive: true });
+
+  drawer?.addEventListener('touchmove', (e) => {
+    if (tracking !== 'cart') return;
+    const touch = e.touches[0];
+    const dx = touch.clientX - startX;
+    const dy = touch.clientY - startY;
+    if (dx > 0 && Math.abs(dx) > Math.abs(dy)) {
+      drawer.style.transform = `translateX(${Math.min(dx, drawer.offsetWidth)}px)`;
+    }
+  }, { passive: true });
+
+  drawer?.addEventListener('touchend', (e) => {
+    if (tracking !== 'cart') return;
+    const touch = e.changedTouches[0];
+    const dx = touch.clientX - startX;
+    const dy = touch.clientY - startY;
+    resetTransform();
+    tracking = null;
+    if (dx > 82 && Math.abs(dx) > Math.abs(dy) * 1.2) closeCartDrawer();
+  }, { passive: true });
+
+  orderCard?.addEventListener('touchstart', (e) => {
+    if (checkout?.classList.contains('hidden')) return;
+    const touch = e.touches[0];
+    startX = touch.clientX;
+    startY = touch.clientY;
+    tracking = 'checkout';
+  }, { passive: true });
+
+  orderCard?.addEventListener('touchmove', (e) => {
+    if (tracking !== 'checkout') return;
+    const touch = e.touches[0];
+    const dx = touch.clientX - startX;
+    const dy = touch.clientY - startY;
+    if (dy > 0 && Math.abs(dy) > Math.abs(dx)) {
+      orderCard.style.transform = `translateY(${Math.min(dy, orderCard.offsetHeight)}px)`;
+    }
+  }, { passive: true });
+
+  orderCard?.addEventListener('touchend', (e) => {
+    if (tracking !== 'checkout') return;
+    const touch = e.changedTouches[0];
+    const dx = touch.clientX - startX;
+    const dy = touch.clientY - startY;
+    resetTransform();
+    tracking = null;
+    if (dy > 88 && Math.abs(dy) > Math.abs(dx) * 1.2) hideCheckout();
+  }, { passive: true });
+}
+
 function buildWhatsAppMessage(order) {
   const lines = [
     'Hello KDP Kitchen Masal, I want to confirm this order:',
@@ -498,6 +679,7 @@ function init() {
       closeMenu();
       closeCartDrawer();
       hideCheckout();
+      closeQuickView();
     }
   });
 
@@ -532,6 +714,12 @@ function init() {
 
   document.getElementById('product-list')?.addEventListener('click', (e) => {
     if (!(e.target instanceof Element)) return;
+    const viewBtn = e.target.closest('[data-view-product-id]');
+    if (viewBtn) {
+      const id = viewBtn.getAttribute('data-view-product-id');
+      if (id) openQuickView(id);
+      return;
+    }
     const btn = e.target.closest('.add-cart-btn');
     if (!btn) return;
     const id = btn.getAttribute('data-product-id');
@@ -543,8 +731,22 @@ function init() {
     }, 1200);
   });
 
-  document.getElementById('cart-fab')?.addEventListener('click', openCartDrawer);
-  document.getElementById('mobile-cart-btn')?.addEventListener('click', openCartDrawer);
+  document.getElementById('quick-view')?.addEventListener('click', (e) => {
+    if (!(e.target instanceof Element)) return;
+    if (e.target === e.currentTarget || e.target.closest('#quick-view-close')) {
+      closeQuickView();
+      return;
+    }
+    const addBtn = e.target.closest('.quick-view__add');
+    if (!addBtn) return;
+    const id = addBtn.getAttribute('data-product-id');
+    if (!id) return;
+    addToCart(id, 1);
+    openQuickView(id);
+  });
+
+  document.getElementById('header-cart-btn')?.addEventListener('click', openCartDrawer);
+  document.getElementById('mobile-header-cart-btn')?.addEventListener('click', openCartDrawer);
   document.getElementById('cart-close-btn')?.addEventListener('click', closeCartDrawer);
   document.getElementById('cart-overlay')?.addEventListener('click', closeCartDrawer);
 
@@ -574,6 +776,7 @@ function init() {
   });
 
   document.getElementById('delivery-zone')?.addEventListener('change', updateCheckoutTotals);
+  attachSwipeToClose();
 
   document.getElementById('checkout-form')?.addEventListener('submit', (e) => {
     e.preventDefault();
