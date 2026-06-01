@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>KDP Kitchen Masal</title>
+  <title>KDP</title>
   <meta name="description" content="Pure, traditional मसाला for homes, retailers & wholesale buyers across Nepal.">
   <meta name="theme-color" content="#D4A012" />
   <meta name="mobile-web-app-capable" content="yes" />
@@ -13,24 +13,31 @@
   <link rel="icon" href="logo.ico" sizes="any" />
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" sizes="180x180" />
   <link rel="manifest" href="manifest.webmanifest" />
-  <link rel="stylesheet" href="style.css?v=6" />
+  <link rel="stylesheet" href="style.css?v=10" />
 </head>
 <body>
   <header class="header">
     <div class="brand">
-      <img src="logo.ico" class="brand-logo" alt="KDP Kitchen Masal logo" />
+      <img src="logo.ico" class="brand-logo" alt="KDP logo" />
       <div>
         <h1>KDP</h1>
         <p>Simpily Better Not the Others</p>
       </div>
     </div>
     <nav class="top-nav">
+      <button type="button" class="mobile-header-cart-btn" id="mobile-header-cart-btn" aria-label="Open cart">
+        <span>Cart</span>
+        <span class="mobile-header-cart-count hidden" id="mobile-header-cart-count">0</span>
+      </button>
       <button id="menu-toggle" class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
       <div class="nav-links" id="nav-links">
         <a class="nav-link" href="index.html" aria-current="page">Home</a>
         <a class="nav-link" href="about.html">About</a>
-        <a class="nav-link" href="#delivery-info">Delivery</a>
-        <a class="nav-link" href="#faq">FAQ</a>
+        <a class="nav-link" href="delivery.html">Delivery & FAQ</a>
+        <button type="button" class="nav-link nav-cart-btn" id="header-cart-btn">
+          <span>Cart</span>
+          <span class="nav-cart-count hidden" id="header-cart-count">0</span>
+        </button>
       </div>
     </nav>
   </header>
@@ -45,14 +52,17 @@
     </div>
   </section>
 
-  <section class="strip strip--trust" aria-label="Trust highlights">
-    <div class="strip__inner">
-      <span class="badge">Trusted by local retailers</span>
-      <span class="strip__text"><strong>No chemicals / No preservatives</strong> • Hygienically packed • Locally sourced</span>
-    </div>
-  </section>
-
   <section class="future-view" id="future-view" aria-label="Animated 3D product view">
+    <div class="future-view__copy">
+      <span class="future-view__eyebrow">Product Preview</span>
+      <h2>Clean packs, ready for daily kitchens.</h2>
+      <p>Browse the product range below and add packs directly to cart.</p>
+      <div class="future-view__chips" aria-label="Product qualities">
+        <span>Fresh stock</span>
+        <span>Sealed packs</span>
+        <span>COD available</span>
+      </div>
+    </div>
     <div class="future-view__stage" id="future-stage">
       <canvas id="future-canvas" aria-label="Animated 3D product showcase"></canvas>
       <div class="future-view__fallback" id="future-fallback" aria-hidden="true">
@@ -63,21 +73,26 @@
     </div>
   </section>
 
-  <section class="supplier-banner" id="contact" aria-label="Supplier information">
-    <div class="supplier-card">
-      <div class="supplier-main">
-        <h3>Supplier: Sangee Spicy & Food Products</h3>
-        <p class="supplier-line"><strong>Phone:</strong> +977-9841938951</p>
-        <p class="supplier-line"><strong>Address:</strong> Dasharath Pokhari 8, Janakpurdham, Dhanusha, Madhesh Province, Nepal</p>
-        <p class="supplier-line"><strong>100% शुद्ध • बिना मिलावट • पारंपरिक विधि से तैयार</strong></p>
-        <p class="supplier-msg">
-          Home delivery available. Cash on Delivery (COD) inside Janakpur city and outside with location-based delivery fee.
-        </p>
-      </div>
-      <div class="supplier-actions">
-        <a class="btn btn-primary" href="tel:+977-9841938951">Call Now</a>
-        <a class="btn btn-outline" href="https://wa.me/9779841938951" target="_blank" rel="noopener noreferrer">WhatsApp</a>
-      </div>
+  <section class="trust-panel" aria-label="Product promises">
+    <div class="trust-panel__item">
+      <span class="trust-panel__kicker">Quality</span>
+      <strong>Clean Ingredients</strong>
+      <p>No chemicals or preservatives in daily-use spice packs.</p>
+    </div>
+    <div class="trust-panel__item">
+      <span class="trust-panel__kicker">Packing</span>
+      <strong>Sealed Fresh</strong>
+      <p>Hygienically packed for safe home and retail use.</p>
+    </div>
+    <div class="trust-panel__item">
+      <span class="trust-panel__kicker">Delivery</span>
+      <strong>COD Available</strong>
+      <p>Cash on Delivery with clear local delivery fees.</p>
+    </div>
+    <div class="trust-panel__item">
+      <span class="trust-panel__kicker">Sourcing</span>
+      <strong>Local Focus</strong>
+      <p>Prepared for Nepali kitchens, retailers, and bulk buyers.</p>
     </div>
   </section>
 
@@ -85,7 +100,7 @@
     <div class="products-header">
       <div>
         <h2>Our Products</h2>
-        <p class="products-subtitle">Search, filter by category, add to cart, then checkout on WhatsApp.</p>
+        <p class="products-subtitle">Shop fresh spices and oil with fast COD delivery.</p>
       </div>
       <div class="products-tools">
         <input type="search" id="product-search" class="search-input" placeholder="Search products..." autocomplete="off" />
@@ -95,21 +110,12 @@
     <div id="product-list" class="product-grid"></div>
   </section>
 
-  <section class="delivery-section" id="delivery-info" aria-label="Delivery information">
-    <h2>Delivery Areas & Fees</h2>
-    <p class="section-lead">Cash on Delivery (COD) is available for all zones below. Delivery fee applies outside Janakpur city.</p>
-    <div class="delivery-grid" id="delivery-zones-display"></div>
+  <section class="quick-view hidden" id="quick-view" aria-label="Product details" aria-hidden="true">
+    <div class="quick-view__panel" role="dialog" aria-modal="true" aria-labelledby="quick-view-title">
+      <button type="button" class="quick-view__close" id="quick-view-close" aria-label="Close product details">×</button>
+      <div class="quick-view__body" id="quick-view-body"></div>
+    </div>
   </section>
-
-  <section class="faq-section" id="faq" aria-label="Frequently asked questions">
-    <h2>FAQ</h2>
-    <div class="faq-list" id="faq-list"></div>
-  </section>
-
-  <button type="button" class="cart-fab hidden" id="cart-fab" aria-label="Open cart">
-    <span class="cart-fab__icon" aria-hidden="true">🛒</span>
-    <span class="cart-fab__count" id="cart-fab-count">0</span>
-  </button>
 
   <div class="cart-overlay hidden" id="cart-overlay" aria-hidden="true"></div>
   <aside class="cart-drawer hidden" id="cart-drawer" aria-label="Shopping cart">
@@ -117,7 +123,7 @@
       <div class="cart-brand">
         <img src="logo.ico" alt="" class="cart-brand__logo" />
         <div>
-          <span class="cart-brand__eyebrow">KDP Kitchen Masal</span>
+          <span class="cart-brand__eyebrow">KDP</span>
           <h2>Your Cart</h2>
         </div>
       </div>
@@ -198,13 +204,7 @@
     <p>Sangee Spicy & Food Products © 2025 • All Rights Reserved • Make with ❤️</p>
   </footer>
 
-  <nav class="mobile-quickbar" aria-label="Mobile quick actions">
-    <a href="#product-list" class="mobile-quickbar__link">Products</a>
-    <button type="button" class="mobile-quickbar__link mobile-quickbar__btn" id="mobile-cart-btn">Cart</button>
-    <a href="https://wa.me/9779841938951" target="_blank" rel="noopener noreferrer" class="mobile-quickbar__link mobile-quickbar__link--primary">WhatsApp</a>
-  </nav>
-
   <script type="module" src="three-showcase.js?v=2"></script>
-  <script src="script.js?v=5"></script>
+  <script src="script.js?v=9"></script>
 </body>
 </html>
