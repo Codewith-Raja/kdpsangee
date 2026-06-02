@@ -13,7 +13,7 @@
   <link rel="icon" href="logo.ico" sizes="any" />
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" sizes="180x180" />
   <link rel="manifest" href="manifest.webmanifest" />
-  <link rel="stylesheet" href="style.css?v=13" />
+  <link rel="stylesheet" href="style.css?v=14" />
 </head>
 <body>
   <header class="header">
@@ -52,23 +52,61 @@
     </div>
   </section>
 
-  <section class="future-view" id="future-view" aria-label="Animated 3D product view">
+  <section class="future-view product-showcase" id="future-view" aria-label="Featured product slider">
     <div class="future-view__copy">
-      <span class="future-view__eyebrow">Product Preview</span>
-      <h2>Choose one product. Pick the perfect size.</h2>
-      <p>Open any product, compare pack sizes, and add the exact quantity you need.</p>
+      <span class="future-view__eyebrow">Fresh Product Range</span>
+      <h2>Five trusted packs, ready for daily kitchens.</h2>
+      <p>Clean packaging, clear sizes, and Cash on Delivery support for confident ordering.</p>
       <div class="future-view__chips" aria-label="Product qualities">
         <span>Fresh stock</span>
         <span>Sealed packs</span>
         <span>COD available</span>
       </div>
     </div>
-    <div class="future-view__stage" id="future-stage">
-      <canvas id="future-canvas" aria-label="Animated 3D product showcase"></canvas>
-      <div class="future-view__fallback" id="future-fallback" aria-hidden="true">
-        <img src="c1.PNG" alt="" />
-        <img src="h1.PNG" alt="" />
-        <img src="m1.PNG" alt="" />
+    <div class="product-showcase__stage" id="product-showcase-stage">
+      <div class="product-showcase__slides" id="product-showcase-slides">
+        <article class="product-showcase__slide active" data-showcase-slide>
+          <img src="m1.PNG" alt="KDP Mustard Oil" />
+          <div>
+            <span>Signature Oil</span>
+            <strong>Mustard Oil</strong>
+          </div>
+        </article>
+        <article class="product-showcase__slide" data-showcase-slide>
+          <img src="c1.PNG" alt="KDP Chilli Powder" />
+          <div>
+            <span>Fresh Heat</span>
+            <strong>Chilli Powder</strong>
+          </div>
+        </article>
+        <article class="product-showcase__slide" data-showcase-slide>
+          <img src="h1.PNG" alt="KDP Turmeric Powder" />
+          <div>
+            <span>Golden Daily Spice</span>
+            <strong>Turmeric Powder</strong>
+          </div>
+        </article>
+        <article class="product-showcase__slide" data-showcase-slide>
+          <img src="d1.PNG" alt="KDP Coriander Powder" />
+          <div>
+            <span>Clean Aroma</span>
+            <strong>Coriander Powder</strong>
+          </div>
+        </article>
+        <article class="product-showcase__slide" data-showcase-slide>
+          <img src="g1.PNG" alt="KDP Shahi Garam Masala" />
+          <div>
+            <span>Premium Blend</span>
+            <strong>Shahi Garam Masala</strong>
+          </div>
+        </article>
+      </div>
+      <div class="product-showcase__dots" id="product-showcase-dots" aria-label="Showcase slides">
+        <button type="button" class="active" aria-label="Show mustard oil"></button>
+        <button type="button" aria-label="Show chilli powder"></button>
+        <button type="button" aria-label="Show turmeric powder"></button>
+        <button type="button" aria-label="Show coriander powder"></button>
+        <button type="button" aria-label="Show garam masala"></button>
       </div>
     </div>
   </section>
@@ -204,7 +242,6 @@
     <p>Sangee Spicy & Food Products © 2025 • All Rights Reserved • Make with ❤️</p>
   </footer>
 
-  <script type="module" src="three-showcase.js?v=2"></script>
-  <script src="script.js?v=12"></script>
+  <script src="script.js?v=13"></script>
 </body>
 </html>
