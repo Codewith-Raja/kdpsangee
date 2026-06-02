@@ -395,7 +395,6 @@ function renderProducts() {
         <p class="price">${escapeHtml(getFamilyPriceRange(family))}</p>
       </div>
       <div class="product-actions">
-        <button class="btn btn-outline view-product-btn" type="button" data-view-family-id="${family.id}">View</button>
         <button class="btn btn-primary select-product-btn" type="button" data-view-family-id="${family.id}">Select Size</button>
       </div>
     </article>
@@ -831,6 +830,44 @@ function closeTopOverlay() {
   return false;
 }
 
+function initProductShowcase() {
+  const slides = Array.from(document.querySelectorAll('[data-showcase-slide]'));
+  const dots = Array.from(document.querySelectorAll('#product-showcase-dots button'));
+  if (!slides.length || !dots.length) return;
+
+  let activeIndex = 0;
+  let timer = 0;
+
+  const setActiveSlide = (index) => {
+    activeIndex = (index + slides.length) % slides.length;
+    slides.forEach((slide, i) => slide.classList.toggle('active', i === activeIndex));
+    dots.forEach((dot, i) => dot.classList.toggle('active', i === activeIndex));
+  };
+
+  const start = () => {
+    clearInterval(timer);
+    timer = window.setInterval(() => setActiveSlide(activeIndex + 1), 1000);
+  };
+
+  dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+      setActiveSlide(index);
+      start();
+    });
+  });
+
+  const showcase = document.getElementById('future-view');
+  showcase?.addEventListener('pointerenter', () => clearInterval(timer));
+  showcase?.addEventListener('pointerleave', start);
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) clearInterval(timer);
+    else start();
+  });
+
+  setActiveSlide(0);
+  start();
+}
+
 function buildWhatsAppMessage(order) {
   const lines = [
     'Hello KDP Kitchen Masal, I want to confirm this order:',
@@ -930,6 +967,7 @@ function init() {
   renderFaq();
   populateDeliverySelect();
   renderProducts();
+  initProductShowcase();
   updateCartUI();
 
   document.getElementById('product-search')?.addEventListener('input', (e) => {
