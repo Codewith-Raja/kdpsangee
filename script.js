@@ -630,7 +630,7 @@ function updateCartUI() {
   if (cart.length === 0) {
     itemsEl.innerHTML = `
       <div class="cart-empty">
-        <div class="cart-empty__mark">KDP</div>
+        <img class="cart-empty__mark" src="icons/logo-source.png" alt="" />
         <h3>Your cart is empty</h3>
         <p>Add your favorite masala, oil, and spice packs to start a WhatsApp order.</p>
       </div>
@@ -846,7 +846,7 @@ function initProductShowcase() {
 
   const start = () => {
     clearInterval(timer);
-    timer = window.setInterval(() => setActiveSlide(activeIndex + 1), 1000);
+    timer = window.setInterval(() => setActiveSlide(activeIndex + 1), 3200);
   };
 
   dots.forEach((dot, index) => {
@@ -870,7 +870,7 @@ function initProductShowcase() {
 
 function buildWhatsAppMessage(order) {
   const lines = [
-    'Hello KDP Kitchen Masal, I want to confirm this order:',
+    'Hello KDP Kitchen Masal Nepal, I want to confirm this order:',
     '',
     `Order ID: ${order.orderId}`,
     '',
